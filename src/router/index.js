@@ -44,7 +44,7 @@ export const asyncRouterMap = [
     children: [{
       path: 'user',
       name: 'user',
-      component: () => import('@/views/pms/product/index'),
+      component: () => import('@/views/ums/admin/index'),
       meta: { title: '用户列表', icon: 'ums-admin' }
     },
     {
@@ -52,13 +52,6 @@ export const asyncRouterMap = [
       name: 'role',
       component: () => import('@/views/pms/product/add'),
       meta: { title: '角色列表', icon: 'ums-role' }
-    },
-    {
-      path: 'perMgmt1',
-      name: 'perMgmt1',
-      component: () => import('@/views/pms/product/update'),
-      meta: { title: '修改商品', icon: 'product-add' },
-      hidden: true
     },
     {
       path: 'per',
