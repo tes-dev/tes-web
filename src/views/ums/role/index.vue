@@ -68,10 +68,10 @@
                          type="text"
                          @click="handleSelectMenu(scope.$index, scope.row)">分配菜单
               </el-button>
-              <el-button size="mini"
+              <!-- <el-button size="mini"
                          type="text"
                          @click="handleSelectResource(scope.$index, scope.row)">分配资源
-              </el-button>
+              </el-button> -->
             </el-row>
             <el-row>
             <el-button size="mini"
