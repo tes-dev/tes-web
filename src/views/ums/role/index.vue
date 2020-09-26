@@ -45,9 +45,9 @@
         <el-table-column label="描述" align="center">
           <template slot-scope="scope">{{scope.row.description}}</template>
         </el-table-column>
-        <el-table-column label="用户数"  width="100" align="center">
+        <!-- <el-table-column label="用户数"  width="100" align="center">
           <template slot-scope="scope">{{scope.row.adminCount}}</template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="添加时间" width="160" align="center">
           <template slot-scope="scope">{{scope.row.createTime | formatDateTime}}</template>
         </el-table-column>

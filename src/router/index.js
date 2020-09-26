@@ -50,7 +50,7 @@ export const asyncRouterMap = [
     {
       path: 'role',
       name: 'role',
-      component: () => import('@/views/pms/product/add'),
+      component: () => import('@/views/ums/role/index'),
       meta: { title: '角色列表', icon: 'ums-role' }
     },
     {
