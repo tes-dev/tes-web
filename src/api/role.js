@@ -10,7 +10,7 @@ export function fetchList(params) {
 
 export function createRole(data) {
   return request({
-    url: '/role/create',
+    url: '/role/insert',
     method: 'post',
     data: data
   })
