@@ -28,8 +28,14 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import avatar from '@/assets/images/avatar.png'
 
 export default {
+  data() {
+    return {
+      avatar
+    }
+  },
   components: {
     Breadcrumb,
     Hamburger

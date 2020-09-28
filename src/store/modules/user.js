@@ -1,6 +1,7 @@
 import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
+
 const user = {
   state: {
     token: getToken(),
@@ -27,9 +28,9 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
-      const username = userInfo.username.trim()
+      const no = userInfo.no.trim()
       return new Promise((resolve, reject) => {
-        login(username, userInfo.password).then(response => {
+        login(no, userInfo.password).then(response => {
           const data = response.data
           const tokenStr = data.tokenHead + data.token
           setToken(tokenStr)
@@ -52,7 +53,7 @@ const user = {
             reject('getInfo: roles must be a non-null !')
           }
           commit('SET_NAME', data.username)
-          commit('SET_AVATAR', 'https://maxwell-oss.oss-cn-shenzhen.aliyuncs.com/img/20200923110700.png')
+          commit('SET_AVATAR', this.avatar)
           resolve(response)
         }).catch(error => {
           reject(error)

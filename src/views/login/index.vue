@@ -15,13 +15,13 @@
           ></svg-icon>
         </div> -->
         <h2 class="login-title color-main">教师评教系统</h2>
-        <el-form-item prop="username">
+        <el-form-item prop="no">
           <el-input
-            name="username"
+            name="no"
             type="text"
-            v-model="loginForm.username"
+            v-model="loginForm.no"
             autoComplete="on"
-            placeholder="请输入用户名"
+            placeholder="请输入学号"
           >
             <span slot="prefix">
               <svg-icon icon-class="user" class="color-main"></svg-icon>
@@ -95,15 +95,15 @@
 </template>
 
 <script>
-import { isvalidUsername } from '@/utils/validate'
+import { isvalidUserNo } from '@/utils/validate'
 import { setSupport, getSupport, setCookie, getCookie } from '@/utils/support'
 import login_center_bg from '@/assets/images/login_center_bg.png'
 
 export default {
   name: 'login',
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!isvalidUsername(value)) {
+    const validateUserNo = (rule, value, callback) => {
+      if (!isvalidUserNo(value)) {
         callback(new Error('请输入正确的用户名'))
       } else {
         callback()
@@ -118,11 +118,11 @@ export default {
     }
     return {
       loginForm: {
-        username: '',
-        password: '',
+        no: '123456',
+        password: '123456',
       },
       loginRules: {
-        username: [{ required: true, trigger: 'blur', validator: validateUsername }],
+        no: [{ required: true, trigger: 'blur', validator: validateUserNo }],
         password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
       loading: false,
@@ -133,10 +133,10 @@ export default {
     }
   },
   created() {
-    this.loginForm.username = getCookie("username")
+    this.loginForm.no = getCookie("no")
     this.loginForm.password = getCookie("password")
-    if (this.loginForm.username === undefined || this.loginForm.username == null || this.loginForm.username === '') {
-      this.loginForm.username = 'admin'
+    if (this.loginForm.no === undefined || this.loginForm.no == null || this.loginForm.no === '') {
+      this.loginForm.no = '123456'
     }
     if (this.loginForm.password === undefined || this.loginForm.password == null) {
       this.loginForm.password = ''
@@ -161,7 +161,7 @@ export default {
           this.loading = true
           this.$store.dispatch('Login', this.loginForm).then(() => {
             this.loading = false
-            setCookie("username", this.loginForm.username, 15)
+            setCookie("no", this.loginForm.no, 15)
             setCookie("password", this.loginForm.password, 15)
             this.$router.push({ path: '/' })
           }).catch(() => {
