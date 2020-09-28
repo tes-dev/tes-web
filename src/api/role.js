@@ -32,11 +32,10 @@ export function updateStatus(id, params) {
   })
 }
 
-export function deleteRole(data) {
+export function deleteRole(id) {
   return request({
-    url: '/role/delete',
+    url: '/role/deleteByid/' + id,
     method: 'post',
-    data: data
   })
 }
 

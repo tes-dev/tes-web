@@ -88,7 +88,7 @@ export const asyncRouterMap = [
     {
       path: 'class',
       name: 'class',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/pms/classManagement/index'),
       meta: { title: '班级管理', icon: 'tms-class' }
     },
     {
