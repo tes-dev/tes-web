@@ -5,7 +5,7 @@
         <i class="el-icon-search"></i>
         <span>筛选搜索</span>
         <el-button
-          style="float: right"
+          style="float: right; margin-top:35px"
           type="primary"
           @click="handleSearchList()"
           size="small"
@@ -13,7 +13,7 @@
           查询搜索
         </el-button>
         <el-button
-          style="float: right; margin-right: 15px"
+          style="float: right; margin-right: 15px; margin-top:35px"
           @click="handleResetSearch()"
           size="small"
         >
@@ -33,6 +33,7 @@
               class="input-width"
               placeholder="权限"
               clearable
+              @keyup.enter.native="handleSearchList()"
             ></el-input>
           </el-form-item>
         </el-form>
@@ -58,7 +59,7 @@
         v-loading="listLoading"
         border
       >
-        <el-table-column label="编号" width="200" align="center">
+        <el-table-column label="编号" width="100" align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
         <el-table-column label="权限名称" align="center">
@@ -70,7 +71,7 @@
         <el-table-column label="权限图标" align="center">
           <template slot-scope="scope">{{ scope.row.icon }}</template>
         </el-table-column>
-        <el-table-column label="是否启用" width="240" align="center">
+        <el-table-column label="是否启用" width="140" align="center">
           <template slot-scope="scope">
             <el-switch
               inactive-color="#ff4949"
@@ -82,7 +83,7 @@
             </el-switch>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="380" align="center">
+        <el-table-column label="操作" width="140" align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"
