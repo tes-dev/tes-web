@@ -49,16 +49,16 @@
       <el-table
         ref="adminTable"
         :data="list"
-        style="width: 70%;margin: auto"
+        style="width: 100%;margin: auto"
         v-loading="listLoading"
         border>
-        <el-table-column label="序号" width="100" align="center">
+        <el-table-column label="序号"  align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column label="系号" width="200" align="center">
+        <el-table-column label="系号"  align="center">
           <template slot-scope="scope">{{ scope.row.no }}</template>
         </el-table-column>
-        <el-table-column label="院系" width="400" align="center">
+        <el-table-column label="院系"  align="center">
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
 
