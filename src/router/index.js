@@ -136,7 +136,7 @@ export const asyncRouterMap = [
         path: 'eval1',
         name: 'eval1',
         component: () => import('@/views/oms/order/index'),
-        meta: { title: '参加评教', icon: 'product-list' }
+        meta: { title: '参加评教', icon: 'ems' }
       }
     ]
   },
