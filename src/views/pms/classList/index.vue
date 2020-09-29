@@ -12,12 +12,12 @@
           size="small"
           label-width="140px"
         >
-            <el-input style="float: left;width: 500px;margin-left: 100px;margin-bottom: 10px"
-              v-model="listQuery.keyword"
-              class="input-width"
-              placeholder=""
-              clearable placeholder="请输入学院名称"
-            ></el-input>
+          <el-input style="float: left;width: 500px;margin-left: 100px;margin-bottom: 10px"
+                    v-model="listQuery.keyword"
+                    class="input-width"
+                    placeholder=""
+                    clearable placeholder="请输入班级名称"
+          ></el-input>
           <el-button style="float: left;margin-left: 210px;margin-right: 10px;width: 80px"
                      type="primary"
                      @click="handleSearchList()"
@@ -34,18 +34,18 @@
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span >学院列表</span>
+      <span >班级列表</span>
       <el-button
 
         size="small"
         class="btn-add"
         @click="handleAdd()"
         style="margin-right: 200px;width: 80px;margin-bottom: 10px"
-      >添加学院</el-button
+      >添加班级</el-button
       >
     </el-card>
     <div class="table-container">
-<!--      :data="list"获取数据列表,slot-scope="scope"是获取数据列表且命名为scope，scope.row当前行的数据-->
+      <!--      :data="list"获取数据列表,slot-scope="scope"是获取数据列表且命名为scope，scope.row当前行的数据-->
       <el-table
         ref="adminTable"
         :data="list"
@@ -55,10 +55,10 @@
         <el-table-column label="序号" width="100" align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column label="系号" width="200" align="center">
+        <el-table-column label="班号" width="200" align="center">
           <template slot-scope="scope">{{ scope.row.no }}</template>
         </el-table-column>
-        <el-table-column label="院系" width="400" align="center">
+        <el-table-column label="班级名称" width="400" align="center">
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
 
@@ -96,15 +96,15 @@
       </el-pagination>
     </div>
     <el-dialog
-      :title="isEdit ? '修改学院信息' : '添加学院'"
+      :title="isEdit ? '修改班级信息' : '添加班级'"
       :visible.sync="dialogVisible"
       width="40%"
     >
       <el-form :model="admin" ref="adminForm" label-width="150px" size="small">
-        <el-form-item label="系号：">
+        <el-form-item label="班号：">
           <el-input v-model="admin.no" style="width: 250px"></el-input>
         </el-form-item>
-        <el-form-item label="学院名称：">
+        <el-form-item label="班级名称：">
           <el-input v-model="admin.name" style="width: 250px"></el-input>
         </el-form-item>
       </el-form>
@@ -118,7 +118,7 @@
   </div>
 </template>
 <script>
-  import { fetchList,updateAdmin,deleteAdmin,createAdmin} from '@/api/dept'
+  import { fetchList,updateClass,deleteClass,createClass} from '@/api/class'
 
   const defaultListQuery = {
     pageNum: 1,
@@ -145,7 +145,7 @@
         roleId: null,
         allRoleList: [],
         userId: null,
-        classList: [],
+        classList: []
       }
     },
     created() {
@@ -176,12 +176,12 @@
 
       },
       handleDelete(index, row) {
-        this.$confirm('是否要删除该学院?', '提示', {
+        this.$confirm('是否要删除该班级?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          deleteAdmin(row.id).then(response => {
+          deleteClass(row.id).then(response => {
             this.$message({
               type: 'success',
               message: '删除成功!'
@@ -201,8 +201,8 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          if (this.isEdit) { //isEdit=true修改学院
-            updateAdmin(this.admin.id, this.admin).then(response => {
+          if (this.isEdit) { //isEdit=true修改班级
+            updateClass(this.admin.id, this.admin).then(response => {
               this.$message({
                 message: '修改成功！',
                 type: 'success'
@@ -210,8 +210,8 @@
               this.dialogVisible = false
               this.getList()
             })
-          } else { //isEdit=false添加学院
-            createAdmin(this.admin).then(response => {
+          } else { //isEdit=false添加班级
+            createClass(this.admin).then(response => {
               this.$message({
                 message: '添加成功！',
                 type: 'success'
@@ -222,16 +222,11 @@
           }
         })
       },
-      handleSelectRole(index, row) {
-        this.userId = row.id
-        this.allocDialogVisible = true
-        this.getRoleListByAdmin(row.id)
-      },
       getList() {
         this.listLoading = true;
         fetchList(this.listQuery).then(response => {
           this.listLoading = false
-          this.list = response.data.list //返回的院系列表
+          this.list = response.data.list //返回的班级列表
           this.total = response.data.total  //有多少条数据
         });
 
