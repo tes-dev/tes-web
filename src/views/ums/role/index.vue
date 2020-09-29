@@ -45,9 +45,9 @@
         <el-table-column label="描述" align="center">
           <template slot-scope="scope">{{scope.row.description}}</template>
         </el-table-column>
-        <el-table-column label="用户数"  width="100" align="center">
+        <!-- <el-table-column label="用户数"  width="100" align="center">
           <template slot-scope="scope">{{scope.row.adminCount}}</template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="添加时间" width="160" align="center">
           <template slot-scope="scope">{{scope.row.createTime | formatDateTime}}</template>
         </el-table-column>
@@ -68,10 +68,10 @@
                          type="text"
                          @click="handleSelectMenu(scope.$index, scope.row)">分配菜单
               </el-button>
-              <el-button size="mini"
+              <!-- <el-button size="mini"
                          type="text"
                          @click="handleSelectResource(scope.$index, scope.row)">分配资源
-              </el-button>
+              </el-button> -->
             </el-row>
             <el-row>
             <el-button size="mini"
@@ -219,17 +219,13 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          let ids = [];
-          ids.push(row.id);
-          let params=new URLSearchParams();
-          params.append("ids",ids);
-          deleteRole(params).then(response => {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            });
-            this.getList();
-          });
+        deleteRole(row.id).then(response => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+          this.getList()
+        })
         });
       },
       handleUpdate(index, row) {

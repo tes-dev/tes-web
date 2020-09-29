@@ -41,6 +41,15 @@
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
       <span>用户列表</span>
+      <!-- <el-upload
+        action="/user/upload"
+        name="excelFile"
+        :show-file-list="false"
+        :on-success="handleSuccess"
+        :before-upload="before - upload"
+      >
+        <el-button size="mini" type="primary">上传文件</el-button>
+      </el-upload> -->
       <el-button
         size="mini"
         type="primary"

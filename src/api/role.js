@@ -10,7 +10,7 @@ export function fetchList(params) {
 
 export function createRole(data) {
   return request({
-    url: '/role/create',
+    url: '/role/insert',
     method: 'post',
     data: data
   })
@@ -32,11 +32,10 @@ export function updateStatus(id, params) {
   })
 }
 
-export function deleteRole(data) {
+export function deleteRole(id) {
   return request({
-    url: '/role/delete',
+    url: '/role/deleteByid/' + id,
     method: 'post',
-    data: data
   })
 }
 

@@ -50,7 +50,7 @@ export const asyncRouterMap = [
     {
       path: 'role',
       name: 'role',
-      component: () => import('@/views/pms/product/add'),
+      component: () => import('@/views/ums/role/index'),
       meta: { title: '角色列表', icon: 'ums-role' }
     },
     {
@@ -76,7 +76,7 @@ export const asyncRouterMap = [
     children: [{
       path: 'dept',
       name: 'dept',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/pms/productCate/dept'),
       meta: { title: '学院管理', icon: 'tms-dept' }
     },
     {
@@ -88,7 +88,7 @@ export const asyncRouterMap = [
     {
       path: 'class',
       name: 'class',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/pms/classManagement/index'),
       meta: { title: '班级管理', icon: 'tms-class' }
     },
     {
@@ -126,16 +126,19 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/eval',
+    path: '/ems',
     component: Layout,
-    redirect: '/eval/eval1',
-    // name: 'eval',
-    children: [{
-      path: 'eval1',
-      name: 'eval1',
-      component: () => import('@/views/home/index'),
-      meta: { title: '参加评教', icon: 'ems' }
-    }]
+    redirect: '/eval',
+    name: 'eval',
+    meta: { title: '参加评教', icon: 'ems' },
+    children: [
+      {
+        path: 'eval1',
+        name: 'eval1',
+        component: () => import('@/views/oms/order/index'),
+        meta: { title: '参加评教', icon: 'ems' }
+      }
+    ]
   },
   { path: '*', redirect: '/404', hidden: true }
 ]
