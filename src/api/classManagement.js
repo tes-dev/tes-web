@@ -6,9 +6,9 @@ export function fetchList(params) {
     params:params
   })
 }
-export function deleteProductCate(id) {
+export function deleteClass(id) {
   return request({
-    url:'/productCategory/delete/'+id,
+    url:'/class/delete/'+id,
     method:'post'
   })
 }
@@ -56,5 +56,13 @@ export function fetchListWithChildren() {
   return request({
     url:'/productCategory/list/withChildren',
     method:'get'
+  })
+}
+
+export function createClass(data) {
+  return request({
+    url:'/class/create',
+    method:'post',
+    data: data
   })
 }

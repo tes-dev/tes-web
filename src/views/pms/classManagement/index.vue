@@ -91,7 +91,7 @@
 </template>
 
 <script>
-  import {fetchList,deleteProductCate,updateShowStatus,updateNavStatus} from '@/api/classManagement'
+  import {fetchList,deleteClass,updateShowStatus,updateNavStatus,createClass} from '@/api/classManagement'
   const defaultListQuery = {
     pageNum: 1,
     pageSize: 5,
@@ -100,7 +100,7 @@
   const defaultTesclass = {
     id: null,
     name: null,
-    no: null,
+    no: null
   };
   export default {
     name: "classManagementList",
@@ -155,16 +155,45 @@
           });
         });
       },
-      handleUpdate(index, row) {
-        this.$router.push({path:'/pms/updateProductCate',query:{id:row.id}});
-      },
-      handleDelete(index, row) {
-        this.$confirm('是否要删除该品牌', '提示', {
+
+      handleDialogConfirm() {
+        this.$confirm('是否要确认?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          deleteProductCate(row.id).then(response => {
+          if (this.isEdit) {
+            updateClass(this.tesclass.id,this.tesclass).then(response => {
+              this.$message({
+                message: '修改成功！',
+                type: 'success'
+              });
+              this.dialogVisible =false;
+              this.getList();
+            })
+          } else {
+            createClass(this.tesclass).then(response => {
+              this.$message({
+                message: '添加成功！',
+                type: 'success'
+              });
+              this.dialogVisible =false;
+              this.getList();
+            })
+          }
+        })
+      },
+
+      handleUpdate(index, row) {
+        this.$router.push({path:'/pms/updateProductCate',query:{id:row.id}});
+      },
+      handleDelete(index, row) {
+        this.$confirm('是否要删除该班级', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteClass(row.id).then(response => {
             this.$message({
               message: '删除成功',
               type: 'success',
