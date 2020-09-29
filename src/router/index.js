@@ -126,16 +126,19 @@ export const asyncRouterMap = [
     ]
   },
   {
-    path: '/eval',
+    path: '/ems',
     component: Layout,
-    redirect: '/eval/eval1',
-    // name: 'eval',
-    children: [{
-      path: 'eval1',
-      name: 'eval1',
-      component: () => import('@/views/home/index'),
-      meta: { title: '参加评教', icon: 'ems' }
-    }]
+    redirect: '/eval',
+    name: 'eval',
+    meta: { title: '参加评教', icon: 'ems' },
+    children: [
+      {
+        path: 'eval1',
+        name: 'eval1',
+        component: () => import('@/views/oms/order/index'),
+        meta: { title: '参加评教', icon: 'product-list' }
+      }
+    ]
   },
   { path: '*', redirect: '/404', hidden: true }
 ]
