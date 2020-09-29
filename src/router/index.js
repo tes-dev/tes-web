@@ -56,7 +56,7 @@ export const asyncRouterMap = [
     {
       path: 'per',
       name: 'per',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/pms/productCate/permission'),
       meta: { title: '权限列表', icon: 'ums-resource' }
     },
     {
@@ -94,7 +94,7 @@ export const asyncRouterMap = [
     {
       path: 'course',
       name: 'course',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/pms/productCate/course'),
       meta: { title: '课程管理', icon: 'tms-course' }
     }
     ]

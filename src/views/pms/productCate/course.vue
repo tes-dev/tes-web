@@ -31,7 +31,7 @@
             <el-input
               v-model="listQuery.keyword"
               class="input-width"
-              placeholder="学号/姓名"
+              placeholder="课程"
               clearable
             ></el-input>
           </el-form-item>
@@ -40,23 +40,15 @@
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span>用户列表</span>
+      <span>课程列表</span>
       <el-button
-        size="mini"
-        type="primary"
-        class="btn-add"
-        @click="handleAdd()"
-        style="margin-left: 20px"
-        >导入用户</el-button
-      >
-      <el-button
-        size="mini"
-        class="btn-add"
-        type="second"
-        @click="handleAdd()"
-        style="margin-left: 20px"
-        >添加用户</el-button
-      >
+              class="btn-add"
+              style="margin-left: 20px"
+              size="mini"
+              type="second"
+              @click="handleAdd()"
+              >添加课程
+            </el-button>
     </el-card>
     <div class="table-container">
       <el-table
@@ -66,65 +58,29 @@
         v-loading="listLoading"
         border
       >
-        <el-table-column label="编号" width="100" align="center">
+        <el-table-column label="课程id" align="center" width="300">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column label="学号" align="center">
-          <template slot-scope="scope">{{ scope.row.no }}</template>
+        <el-table-column label="课程名称" align="center">
+          <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
-        <el-table-column label="姓名" align="center">
-          <template slot-scope="scope">{{ scope.row.username }}</template>
+        <el-table-column label="课程编号" width="300" align="center">
+          <template slot-scope="scope">{{ scope.row.num }}</template>
         </el-table-column>
-        <el-table-column label="性别" align="center">
+        <el-table-column label="操作" width="480" align="center">
           <template slot-scope="scope">
-            {{ scope.row.gender == 0 ? "男" : "女" }}</template
-          >
-        </el-table-column>
-        <el-table-column label="角色" align="center">
-          <template slot-scope="scope">
-            <div v-if="scope.row.roleId == 1">管理员</div>
-            <div v-else-if="scope.row.roleId == 2">领导</div>
-            <div v-else-if="scope.row.roleId == 3">教师</div>
-            <div v-else>学生</div>
-          </template>
-        </el-table-column>
-        <el-table-column label="班级" align="center">
-          <template slot-scope="scope">{{ scope.row.classNo }}</template>
-        </el-table-column>
-        <el-table-column label="院系" align="center">
-          <template slot-scope="scope">{{ scope.row.deptNo }}</template>
-        </el-table-column>
-        <el-table-column label="是否启用" width="140" align="center">
-          <template slot-scope="scope">
-            <el-switch
-              @change="handleStatusChange(scope.$index, scope.row)"
-              :active-value="1"
-              :inactive-value="0"
-              v-model="scope.row.status"
-            >
-            </el-switch>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="180" align="center">
-          <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="text"
-              @click="handleSelectRole(scope.$index, scope.row)"
-              >分配角色
-            </el-button>
             <el-button
               size="mini"
               type="text"
               @click="handleUpdate(scope.$index, scope.row)"
             >
-              编辑
+              修改课程
             </el-button>
             <el-button
               size="mini"
               type="text"
               @click="handleDelete(scope.$index, scope.row)"
-              >删除
+              >删除课程
             </el-button>
           </template>
         </el-table-column>
@@ -144,112 +100,21 @@
       </el-pagination>
     </div>
     <el-dialog
-      :title="isEdit ? '编辑用户' : '添加用户'"
+      :title="isEdit ? '修改课程' : '添加课程'"
       :visible.sync="dialogVisible"
       width="40%"
     >
       <el-form :model="admin" ref="adminForm" label-width="150px" size="small">
-        <el-form-item label="学号：">
-          <el-input v-model="admin.no" style="width: 250px"></el-input>
+        <el-form-item label="课程名称：">
+          <el-input v-model="admin.name" style="width: 250px"></el-input>
         </el-form-item>
-        <el-form-item label="姓名：">
-          <el-input v-model="admin.username" style="width: 250px"></el-input>
-        </el-form-item>
-        <el-form-item label="性别：">
-          <el-radio v-model="admin.gender" label="0">男</el-radio>
-          <el-radio v-model="admin.gender" label="1">女</el-radio>
-        </el-form-item>
-        <el-form-item label="班级：">
-          <el-select
-            v-model="admin.classNo"
-            placeholder="请选择"
-            size="small"
-            style="width: 250px"
-          >
-            <el-option
-              v-for="item in classList"
-              :key="item.id"
-              :label="item.no"
-              :value="item.no"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="院系：">
-          <el-select
-            v-model="admin.deptNo"
-            placeholder="请选择"
-            size="small"
-            style="width: 250px"
-          >
-            <el-option
-              v-for="item in deptList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.no"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="角色：">
-          <el-select
-            v-model="admin.roleId"
-            placeholder="请选择"
-            size="small"
-            style="width: 250px"
-          >
-            <el-option
-              v-for="item in allRoleList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            >
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="密码：">
-          <el-input
-            v-model="admin.password"
-            type="password"
-            style="width: 250px"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="是否启用：">
-          <el-radio-group v-model="admin.status">
-            <el-radio :label="1">是</el-radio>
-            <el-radio :label="0">否</el-radio>
-          </el-radio-group>
+        <el-form-item label="课程编号：">
+          <el-input v-model="admin.num" style="width: 250px"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click=
-        "handleDialogConfirm()" size="small"
-          >确 定</el-button
-        >
-      </span>
-    </el-dialog>
-    <el-dialog title="分配角色" :visible.sync="allocDialogVisible" width="30%">
-      <el-select
-        v-model="roleId"
-        placeholder="请选择"
-        size="small"
-        style="width: 80%"
-      >
-        <el-option
-          v-for="item in allRoleList"
-          :key="item.id"
-          :label="item.name"
-          :value="item.id"
-        >
-        </el-option>
-      </el-select>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="allocDialogVisible = false" size="small"
-          >取 消</el-button
-        >
-        <el-button
-          type="primary"
-          @click="handleAllocDialogConfirm()"
-          size="small"
+        <el-button type="primary" @click="handleDialogConfirm()" size="small"
           >确 定</el-button
         >
       </span>
@@ -257,27 +122,22 @@
   </div>
 </template>
 <script>
-import { fetchList, createAdmin, updateAdmin, updateStatus, deleteAdmin, getRoleByAdmin, allocRole } from '@/api/login'
-import { fetchAllRoleList } from '@/api/role'
+import { updateAdmin, getRoleByAdmin, allocRole } from '@/api/login'
+// import { fetchAllRoleList } from '@/api/role'
 import { formatDate } from '@/utils/date'
 import { getClassList } from '@/api/class'
 import { getDeptList } from '@/api/dept'
+import { fetchList,createAdmin,deleteAdmin,updateCourse } from '@/api/course'
 
 const defaultListQuery = {
   pageNum: 1,
-  pageSize: 5,
+  pageSize: 10,
   keyword: null
 }
 const defaultAdmin = {
   id: null,
-  no: null,
-  username: null,
-  password: null,
-  gender: null,
-  roleId: null,
-  classNo: null,
-  deptNo: null,
-  status: 1
+  name: null,
+  num: null,
 }
 export default {
   name: 'adminList',
@@ -300,7 +160,7 @@ export default {
   },
   created() {
     this.getList()
-    this.getAllRoleList()
+    // this.getAllRoleList()
   },
   filters: {
     formatDateTime(time) {
@@ -332,13 +192,6 @@ export default {
       this.dialogVisible = true
       this.isEdit = false
       this.admin = Object.assign({}, defaultAdmin)
-      // 获取班级与学院数据
-      getClassList().then(res => {
-        this.classList = res.data
-      })
-      getDeptList().then(res => {
-        this.deptList = res.data
-      })
     },
     handleStatusChange(index, row) {
       this.$confirm('是否要修改该状态?', '提示', {
@@ -361,7 +214,7 @@ export default {
       })
     },
     handleDelete(index, row) {
-      this.$confirm('是否要删除该用户?', '提示', {
+      this.$confirm('是否要删除该课程?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -394,10 +247,10 @@ export default {
         type: 'warning'
       }).then(() => {
         if (this.isEdit) {
-          updateAdmin(this.admin.id, this.admin).then(response => {
+          updateCourse(this.admin.id,this.admin).then(response =>{
             this.$message({
-              message: '修改成功！',
-              type: 'success'
+              message:'修改成功!',
+              type:'success'
             })
             this.dialogVisible = false
             this.getList()
@@ -411,6 +264,7 @@ export default {
             this.dialogVisible = false
             this.getList()
           })
+          
         }
       })
     },
@@ -446,11 +300,11 @@ export default {
         this.total = response.data.total
       })
     },
-    getAllRoleList() {
-      fetchAllRoleList().then(response => {
-        this.allRoleList = response.data
-      })
-    },
+    // getAllRoleList() {
+    //   fetchAllRoleList().then(response => {
+    //     this.allRoleList = response.data
+    //   })
+    // },
     getRoleListByAdmin(id) {
       getRoleByAdmin(id).then(response => {
         let allocRoleList = response.data
