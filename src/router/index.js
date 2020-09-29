@@ -102,19 +102,19 @@ export const asyncRouterMap = [
     children: [{
       path: 'batch',
       name: 'batch',
-      component: () => import('@/views/lms/productCate/index'),
+      component: () => import('@/views/ems/batch/index'),
       meta: { title: '批次管理', icon: 'ems-batch' }
     },
     {
       path: 'index',
       name: 'index',
-      component: () => import('@/views/lms/productCate/index'),
+      component: () => import('@/views/ems/index/index'),
       meta: { title: '指标管理', icon: 'tms-index' }
     },
     {
       path: 'anal',
       name: 'anal',
-      component: () => import('@/views/lms/productCate/index'),
+      component: () => import('@/views/ems/anal/index'),
       meta: { title: '统计分析', icon: 'tms-anal' }
     }
     ]
@@ -129,7 +129,7 @@ export const asyncRouterMap = [
       {
         path: 'eval1',
         name: 'eval1',
-        component: () => import('@/views/ums/user/index'),
+        component: () => import('@/views/ems/eval/index'),
         meta: { title: '参加评教', icon: 'ems' }
       }
     ]

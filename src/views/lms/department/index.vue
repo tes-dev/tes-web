@@ -3,7 +3,7 @@
     <el-card class="filter-container" shadow="never">
       <div style="float: left">
         <i class="el-icon-search"></i>
-        <span >筛选搜索</span>
+        <span>筛选搜索</span>
       </div>
       <div>
         <el-form
@@ -12,21 +12,38 @@
           size="small"
           label-width="140px"
         >
-            <el-input style="float: left;width: 500px;margin-left: 100px;margin-bottom: 10px"
-              v-model="listQuery.keyword"
-              class="input-width"
-              placeholder=""
-              clearable placeholder="请输入学院名称"
-            ></el-input>
-          <el-button style="float: left;margin-left: 210px;margin-right: 10px;width: 80px"
-                     type="primary"
-                     @click="handleSearchList()"
-                     size="small" icon="el-icon-search">
+          <el-input
+            style="
+              float: left;
+              width: 500px;
+              margin-left: 100px;
+              margin-bottom: 10px;
+            "
+            v-model="listQuery.keyword"
+            class="input-width"
+            placeholder=""
+            clearable
+          ></el-input>
+          <el-button
+            style="
+              float: left;
+              margin-left: 210px;
+              margin-right: 10px;
+              width: 80px;
+            "
+            type="primary"
+            @click="handleSearchList()"
+            size="small"
+            icon="el-icon-search"
+          >
             搜索
           </el-button>
-          <el-button style="float: left;width: 80px"
-                     @click="handleResetSearch()"
-                     size="small" type="info">
+          <el-button
+            style="float: left; width: 80px"
+            @click="handleResetSearch()"
+            size="small"
+            type="info"
+          >
             重置
           </el-button>
         </el-form>
@@ -34,24 +51,24 @@
     </el-card>
     <el-card class="operate-container" shadow="never">
       <i class="el-icon-tickets"></i>
-      <span >学院列表</span>
+      <span>学院列表</span>
       <el-button
-
         size="small"
         class="btn-add"
         @click="handleAdd()"
-        style="margin-right: 200px;width: 80px;margin-bottom: 10px"
-      >添加学院</el-button
+        style="margin-right: 200px; width: 80px; margin-bottom: 10px"
+        >添加学院</el-button
       >
     </el-card>
     <div class="table-container">
-<!--      :data="list"获取数据列表,slot-scope="scope"是获取数据列表且命名为scope，scope.row当前行的数据-->
+      <!--      :data="list"获取数据列表,slot-scope="scope"是获取数据列表且命名为scope，scope.row当前行的数据-->
       <el-table
         ref="adminTable"
         :data="list"
-        style="width: 70%;margin: auto"
+        style="width: 70%; margin: auto"
         v-loading="listLoading"
-        border>
+        border
+      >
         <el-table-column label="序号" width="100" align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
@@ -62,21 +79,21 @@
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
 
-        <el-table-column label="操作"  align="center">
+        <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button
               type="primary"
               size="small"
               @click="handleUpdate(scope.$index, scope.row)"
               round
-            >修改
+              >修改
             </el-button>
             <el-button
               size="small"
               type="danger"
               @click="handleDelete(scope.$index, scope.row)"
               round
-            >删除
+              >删除
             </el-button>
           </template>
         </el-table-column>
@@ -111,133 +128,133 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false" size="small">取 消</el-button>
         <el-button type="primary" @click="handleDialogConfirm()" size="small"
-        >确 定
+          >确 定
         </el-button>
       </span>
     </el-dialog>
   </div>
 </template>
 <script>
-  import { fetchList,updateAdmin,deleteAdmin,createAdmin} from '@/api/dept'
+import { fetchList, updateAdmin, deleteAdmin, createAdmin } from '@/api/dept'
 
-  const defaultListQuery = {
-    pageNum: 1,
-    pageSize: 5,
-    keyword: null
-  }
-  const defaultAdmin = {
-    id: null,
-    no: null,
-    name: null
-  }
-  export default {
-    name: 'adminList',
-    data() {
-      return {
-        listQuery: Object.assign({}, defaultListQuery),
-        list: null,
-        total: null,
-        listLoading: false,
-        dialogVisible: false,
-        admin: Object.assign({}, defaultAdmin),//修改
-        isEdit: false,
-        allocDialogVisible: false,
-        roleId: null,
-        allRoleList: [],
-        userId: null,
-        classList: [],
-      }
+const defaultListQuery = {
+  pageNum: 1,
+  pageSize: 5,
+  keyword: null
+}
+const defaultAdmin = {
+  id: null,
+  no: null,
+  name: null
+}
+export default {
+  name: 'adminList',
+  data() {
+    return {
+      listQuery: Object.assign({}, defaultListQuery),
+      list: null,
+      total: null,
+      listLoading: false,
+      dialogVisible: false,
+      admin: Object.assign({}, defaultAdmin),//修改
+      isEdit: false,
+      allocDialogVisible: false,
+      roleId: null,
+      allRoleList: [],
+      userId: null,
+      classList: [],
+    }
+  },
+  created() {
+    this.getList()
+    this.getAllRoleList()
+  },
+  methods: {
+    handleResetSearch() {
+      this.listQuery = Object.assign({}, defaultListQuery)
     },
-    created() {
+    handleSearchList() {
+      this.listQuery.pageNum = 1
       this.getList()
-      this.getAllRoleList()
     },
-    methods: {
-      handleResetSearch() {
-        this.listQuery = Object.assign({}, defaultListQuery)
-      },
-      handleSearchList() {
-        this.listQuery.pageNum = 1
-        this.getList()
-      },
-      handleSizeChange(val) {
-        this.listQuery.pageNum = 1
-        this.listQuery.pageSize = val
-        this.getList()
-      },
-      handleCurrentChange(val) {
-        this.listQuery.pageNum = val
-        this.getList()
-      },
-      handleAdd() {
-        this.dialogVisible = true
-        this.isEdit = false
-        this.admin = Object.assign({}, defaultAdmin)
+    handleSizeChange(val) {
+      this.listQuery.pageNum = 1
+      this.listQuery.pageSize = val
+      this.getList()
+    },
+    handleCurrentChange(val) {
+      this.listQuery.pageNum = val
+      this.getList()
+    },
+    handleAdd() {
+      this.dialogVisible = true
+      this.isEdit = false
+      this.admin = Object.assign({}, defaultAdmin)
 
-      },
-      handleDelete(index, row) {
-        this.$confirm('是否要删除该学院?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          deleteAdmin(row.id).then(response => {
+    },
+    handleDelete(index, row) {
+      this.$confirm('是否要删除该学院?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteAdmin(row.id).then(response => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+          this.getList()
+        })
+      })
+    },
+    handleUpdate(index, row) {
+      this.dialogVisible = true
+      this.isEdit = true
+      this.admin = Object.assign({}, row)
+    },
+    handleDialogConfirm() {
+      this.$confirm('是否要确认?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if (this.isEdit) { //isEdit=true修改学院
+          updateAdmin(this.admin.id, this.admin).then(response => {
             this.$message({
-              type: 'success',
-              message: '删除成功!'
+              message: '修改成功！',
+              type: 'success'
             })
+            this.dialogVisible = false
             this.getList()
           })
-        })
-      },
-      handleUpdate(index, row) {
-        this.dialogVisible = true
-        this.isEdit = true
-        this.admin = Object.assign({}, row)
-      },
-      handleDialogConfirm() {
-        this.$confirm('是否要确认?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          if (this.isEdit) { //isEdit=true修改学院
-            updateAdmin(this.admin.id, this.admin).then(response => {
-              this.$message({
-                message: '修改成功！',
-                type: 'success'
-              })
-              this.dialogVisible = false
-              this.getList()
+        } else { //isEdit=false添加学院
+          createAdmin(this.admin).then(response => {
+            this.$message({
+              message: '添加成功！',
+              type: 'success'
             })
-          } else { //isEdit=false添加学院
-            createAdmin(this.admin).then(response => {
-              this.$message({
-                message: '添加成功！',
-                type: 'success'
-              })
-              this.dialogVisible = false
-              this.getList()
-            })
-          }
-        })
-      },
-      handleSelectRole(index, row) {
-        this.userId = row.id
-        this.allocDialogVisible = true
-        this.getRoleListByAdmin(row.id)
-      },
-      getList() {
-        this.listLoading = true;
-        fetchList(this.listQuery).then(response => {
-          this.listLoading = false
-          this.list = response.data.list //返回的院系列表
-          this.total = response.data.total  //有多少条数据
-        });
+            this.dialogVisible = false
+            this.getList()
+          })
+        }
+      })
+    },
+    handleSelectRole(index, row) {
+      this.userId = row.id
+      this.allocDialogVisible = true
+      this.getRoleListByAdmin(row.id)
+    },
+    getList() {
+      this.listLoading = true
+      fetchList(this.listQuery).then(response => {
+        this.listLoading = false
+        this.list = response.data.list //返回的院系列表
+        this.total = response.data.total  //有多少条数据
+      })
 
-      },
+    },
 
-    }
   }
+}
 </script>
 
