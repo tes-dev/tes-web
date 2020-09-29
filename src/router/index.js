@@ -76,7 +76,7 @@ export const asyncRouterMap = [
     children: [{
       path: 'dept',
       name: 'dept',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/pms/productCate/dept'),
       meta: { title: '学院管理', icon: 'tms-dept' }
     },
     {
