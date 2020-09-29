@@ -62,7 +62,7 @@ export const asyncRouterMap = [
     {
       path: 'menu',
       name: 'menu',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/ums/menu/index'),
       meta: { title: '菜单列表', icon: 'ums-menu' }
     }
     ]
