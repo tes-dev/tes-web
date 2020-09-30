@@ -7,27 +7,67 @@ export function getClassList() {
   })
 }
 
-export function fetchList(params) {//查看班级
+export function fetchList(params) {
   return request({
     url: '/class/list',
     method: 'get',
     params: params
   })
 }
-export function updateClass(id, data) {//修改班级
-  return request({
-    url: '/class/update/' + id, //跳转地址
-    method: 'post',   //方法
-    data: data    //数据
-  })
-}
-export function deleteClass(id) { //删除班级
+export function deleteClass(id) {
   return request({
     url: '/class/delete/' + id,
     method: 'post'
   })
 }
-export function createClass(data) { //添加班级
+
+export function createProductCate(data) {
+  return request({
+    url: '/productCategory/create',
+    method: 'post',
+    data: data
+  })
+}
+
+export function updateProductCate(id, data) {
+  return request({
+    url: '/productCategory/update/' + id,
+    method: 'post',
+    data: data
+  })
+}
+
+export function getProductCate(id) {
+  return request({
+    url: '/productCategory/' + id,
+    method: 'get',
+  })
+}
+
+export function updateShowStatus(data) {
+  return request({
+    url: '/productCategory/update/showStatus',
+    method: 'post',
+    data: data
+  })
+}
+
+export function updateNavStatus(data) {
+  return request({
+    url: '/productCategory/update/navStatus',
+    method: 'post',
+    data: data
+  })
+}
+
+export function fetchListWithChildren() {
+  return request({
+    url: '/productCategory/list/withChildren',
+    method: 'get'
+  })
+}
+
+export function createClass(data) {
   return request({
     url: '/class/create',
     method: 'post',

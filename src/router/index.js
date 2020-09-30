@@ -44,7 +44,7 @@ export const asyncRouterMap = [
     children: [{
       path: 'user',
       name: 'user',
-      component: () => import('@/views/ums/admin/index'),
+      component: () => import('@/views/ums/user/index'),
       meta: { title: '用户列表', icon: 'ums-admin' }
     },
     {
@@ -56,13 +56,13 @@ export const asyncRouterMap = [
     {
       path: 'per',
       name: 'per',
-      component: () => import('@/views/pms/productCate/permission'),
+      component: () => import('@/views/ums/permission/index'),
       meta: { title: '权限列表', icon: 'ums-resource' }
     },
     {
       path: 'menu',
       name: 'menu',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/ums/menu/index'),
       meta: { title: '菜单列表', icon: 'ums-menu' }
     }
     ]
@@ -76,25 +76,19 @@ export const asyncRouterMap = [
     children: [{
       path: 'dept',
       name: 'dept',
-      component: () => import('@/views/pms/productCate/dept'),
+      component: () => import('@/views/lms/department/index'),
       meta: { title: '学院管理', icon: 'tms-dept' }
-    },
-    {
-      path: 'major',
-      name: 'major',
-      component: () => import('@/views/pms/productCate/index'),
-      meta: { title: '专业管理', icon: 'tms-major' }
     },
     {
       path: 'class',
       name: 'class',
-      component: () => import('@/views/pms/classManagement/index'),
+      component: () => import('@/views/lms/class/index'),
       meta: { title: '班级管理', icon: 'tms-class' }
     },
     {
       path: 'course',
       name: 'course',
-      component: () => import('@/views/pms/productCate/course'),
+      component: () => import('@/views/lms/course/index'),
       meta: { title: '课程管理', icon: 'tms-course' }
     }
     ]
@@ -108,19 +102,19 @@ export const asyncRouterMap = [
     children: [{
       path: 'batch',
       name: 'batch',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/ems/batch/index'),
       meta: { title: '批次管理', icon: 'ems-batch' }
     },
     {
       path: 'index',
       name: 'index',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/ems/index/index'),
       meta: { title: '指标管理', icon: 'tms-index' }
     },
     {
       path: 'anal',
       name: 'anal',
-      component: () => import('@/views/pms/productCate/index'),
+      component: () => import('@/views/ems/anal/index'),
       meta: { title: '统计分析', icon: 'tms-anal' }
     }
     ]
@@ -135,7 +129,7 @@ export const asyncRouterMap = [
       {
         path: 'eval1',
         name: 'eval1',
-        component: () => import('@/views/oms/order/index'),
+        component: () => import('@/views/ems/eval/index'),
         meta: { title: '参加评教', icon: 'ems' }
       }
     ]
