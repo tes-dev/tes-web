@@ -11,23 +11,29 @@
           :model="listQuery"
           size="small"
           label-width="140px"
+          style="margin-top: 30px"
         >
-          <el-input
-            style="
-              float: left;
-              width: 500px;
-              margin-left: 100px;
-              margin-bottom: 10px;
-            "
-            v-model="listQuery.keyword"
-            class="input-width"
-            placeholder=""
-            clearable
-          ></el-input>
+          <el-form-item label="输入搜索：">
+            <el-input
+              v-model="listQuery.keyword"
+              class="input-width"
+              placeholder="请输入院系名称"
+              clearable
+              @keyup.enter.native="handleSearchList()"
+            ></el-input>
+          </el-form-item>
+          <el-button
+            style="float: right; width: 80px"
+            @click="handleResetSearch()"
+            size="small"
+            type="info"
+          >
+            重置
+          </el-button>
           <el-button
             style="
-              float: left;
-              margin-left: 210px;
+              float: right;
+
               margin-right: 10px;
               width: 80px;
             "
@@ -37,14 +43,6 @@
             icon="el-icon-search"
           >
             搜索
-          </el-button>
-          <el-button
-            style="float: left; width: 80px"
-            @click="handleResetSearch()"
-            size="small"
-            type="info"
-          >
-            重置
           </el-button>
         </el-form>
       </div>
@@ -56,7 +54,7 @@
         size="small"
         class="btn-add"
         @click="handleAdd()"
-        style="margin-right: 200px; width: 80px; margin-bottom: 10px"
+        style="float: right; width: 80px; margin-bottom: 10px"
         >添加学院</el-button
       >
     </el-card>
@@ -65,17 +63,17 @@
       <el-table
         ref="adminTable"
         :data="list"
-        style="width: 70%; margin: auto"
+        style="width: 100%; margin: auto"
         v-loading="listLoading"
         border
       >
-        <el-table-column label="序号" width="100" align="center">
+        <el-table-column label="序号"  align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column label="系号" width="200" align="center">
+        <el-table-column label="系号"  align="center">
           <template slot-scope="scope">{{ scope.row.no }}</template>
         </el-table-column>
-        <el-table-column label="院系" width="400" align="center">
+        <el-table-column label="院系"  align="center">
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
 
