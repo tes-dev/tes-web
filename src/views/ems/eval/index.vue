@@ -42,23 +42,59 @@
         </el-table-column>
       </el-table>
     </div>
+    <div class="pagination-container">
+      <el-pagination
+        background
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        layout="total, sizes,prev, pager, next,jumper"
+        :current-page.sync="page.pageNum"
+        :page-size="page.pageSize"
+        :page-sizes="[5, 10, 15]"
+        :total="total"
+      >
+      </el-pagination>
+    </div>
   </div>
 </template>
 
 <script>
+import { fetchList } from '@/api/eval'
+
 export default {
   name: "eval",
   data() {
     return {
       listLoading: false,
       evalList: null,
+      page: {
+        pageNum: 1,
+        pageSize: 5,
+      },
+      total: null,
     }
   },
   created() {
-
+    this.getList()
   },
   methods: {
-
+    getList() {
+      this.listLoading = true
+      fetchList().then(res => {
+        this.listLoading = false
+        this.evalList = res.data.list
+        this.total = res.data.total
+      })
+    },
+    handleSizeChange(val) {
+      this.page.pageNum = 1
+      this.page.pageSize = val
+      this.getList()
+    },
+    handleCurrentChange(val) {
+      this.page.pageNum = val
+      this.getList()
+    }
   }
 }
 </script>
