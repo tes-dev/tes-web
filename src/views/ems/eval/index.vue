@@ -8,12 +8,12 @@
         v-loading="listLoading"
         border
       >
-        <el-table-column label="编号" width="100" align="center" class="type">
+        <el-table-column label="编号" width="100" align="center" type="index">
           <!-- <template slot-scope="scope">{{ scope.row.id }}</template> -->
         </el-table-column>
-        <el-table-column label="课程id" align="center">
+        <!-- <el-table-column label="课程id" align="center">
           <template slot-scope="scope">{{ scope.row.courseId }}</template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="课程名" align="center">
           <template slot-scope="scope">{{ scope.row.courseName }}</template>
         </el-table-column>
@@ -42,24 +42,12 @@
         </el-table-column>
       </el-table>
     </div>
-    <div class="pagination-container">
-      <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        layout="total, sizes,prev, pager, next,jumper"
-        :current-page.sync="page.pageNum"
-        :page-size="page.pageSize"
-        :page-sizes="[5, 10, 15]"
-        :total="total"
-      >
-      </el-pagination>
-    </div>
   </div>
 </template>
 
 <script>
 import { fetchList } from '@/api/eval'
+import { setSupport, getSupport, setCookie, getCookie } from '@/utils/support'
 
 export default {
   name: "eval",
@@ -67,34 +55,22 @@ export default {
     return {
       listLoading: false,
       evalList: null,
-      page: {
-        pageNum: 1,
-        pageSize: 5,
-      },
-      total: null,
+      no: null,
     }
   },
   created() {
+    this.no = getCookie("no")
+    console.log("no: ", this.no)
     this.getList()
   },
   methods: {
     getList() {
       this.listLoading = true
-      fetchList().then(res => {
+      fetchList(this.no).then(res => {
         this.listLoading = false
-        this.evalList = res.data.list
-        this.total = res.data.total
+        this.evalList = res.data
       })
     },
-    handleSizeChange(val) {
-      this.page.pageNum = 1
-      this.page.pageSize = val
-      this.getList()
-    },
-    handleCurrentChange(val) {
-      this.page.pageNum = val
-      this.getList()
-    }
   }
 }
 </script>

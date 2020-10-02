@@ -1,10 +1,9 @@
 import request from '@/utils/request'
 
-export function fetchList(id) {
+export function fetchList(params) {
   return request({
-    url: '/eval/courseList/' + id,
+    url: '/indicator/list',
     method: 'get',
+    params: params
   })
 }
-
-

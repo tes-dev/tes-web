@@ -67,13 +67,13 @@
         v-loading="listLoading"
         border
       >
-        <el-table-column label="序号"  align="center">
+        <el-table-column label="序号" align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column label="系号"  align="center">
+        <el-table-column label="系号" align="center">
           <template slot-scope="scope">{{ scope.row.no }}</template>
         </el-table-column>
-        <el-table-column label="院系"  align="center">
+        <el-table-column label="院系" align="center">
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
 
@@ -165,7 +165,6 @@ export default {
   },
   created() {
     this.getList()
-    this.getAllRoleList()
   },
   methods: {
     handleResetSearch() {
