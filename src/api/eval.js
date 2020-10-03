@@ -7,4 +7,12 @@ export function fetchList(id) {
   })
 }
 
+export function evalItem(data) {
+  return request({
+    url: '/eval/startEvaluation',
+    method: 'post',
+    data: data
+  })
+}
+
 

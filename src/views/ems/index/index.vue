@@ -69,7 +69,9 @@
           <template slot-scope="scope">{{ scope.row.weight }}</template>
         </el-table-column>
         <el-table-column label="创建时间" align="center">
-          <template slot-scope="scope">{{ scope.row.createTime }}</template>
+          <template slot-scope="scope">{{
+            scope.row.createTime | formatDateTime
+          }}</template>
         </el-table-column>
         <el-table-column label="是否启用" width="140" align="center">
           <template slot-scope="scope">
@@ -154,7 +156,8 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/anal'
+import { fetchList, updateStatus, deleteIndicator, updateIndicator, createIndicator } from '@/api/anal'
+import { formatDate, timeNow } from '@/utils/date'
 
 const defaultListQuery = {
   pageNum: 1,
@@ -162,27 +165,38 @@ const defaultListQuery = {
   keyword: null
 }
 
+const defaultIndicator = {
+  id: null,
+  name: null,
+  weight: null,
+  createTime: null,
+  status: 1
+}
+
 export default {
   name: "anal",
   data() {
     return {
       listQuery: Object.assign({}, defaultListQuery),
+      indicator: Object.assign({}, defaultIndicator),
       list: null,
       total: null,
       listLoading: false,
       dialogVisible: false,
-      indicator: {
-        id: null,
-        name: null,
-        weight: null,
-        createTime: null,
-        status: 1
-      },
       isEdit: false,
     }
   },
   created() {
     this.getList()
+  },
+  filters: {
+    formatDateTime(time) {
+      if (time == null || time === '') {
+        return 'N/A'
+      }
+      let date = new Date(time)
+      return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
+    }
   },
   methods: {
     getList() {
@@ -199,18 +213,52 @@ export default {
     },
     handleResetSearch() {
       this.listQuery = Object.assign({}, defaultListQuery)
+      this.getList()
     },
     handleAdd() {
-
+      this.dialogVisible = true
+      this.isEdit = false
+      this.indicator = Object.assign({}, defaultIndicator)
     },
     handleStatusChange(index, row) {
-
+      this.$confirm('是否要修改该状态', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        updateStatus(row.id, { status: row.status }).then(res => {
+          this.$message({
+            type: 'success',
+            message: '修改成功!'
+          })
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消修改'
+        })
+        this.getList()
+      })
     },
     handleUpdate(index, row) {
-
+      this.dialogVisible = true
+      this.isEdit = true
+      this.indicator = Object.assign({}, row)
     },
     handleDelete(index, row) {
-
+      this.$confirm('是否要删除该指标', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteIndicator(row.id).then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+          this.getList()
+        })
+      })
     },
     handleSizeChange(val) {
       this.listQuery.pageNum = 1
@@ -221,6 +269,34 @@ export default {
       this.listQuery.pageNum = val
       this.getList()
     },
+    handleDialogConfirm() {
+      this.$confirm('是否要确认?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if (this.isEdit) {
+          updateIndicator(this.indicator.id, this.indicator).then(res => {
+            this.$message({
+              message: '修改成功!',
+              type: 'success'
+            })
+            this.dialogVisible = false
+            this.getList()
+          })
+        } else {
+          this.indicator.createTime = timeNow()
+          createIndicator(this.indicator).then(res => {
+            this.$message({
+              message: '添加成功!',
+              type: 'success'
+            })
+            this.dialogVisible = false
+            this.getList()
+          })
+        }
+      })
+    }
   }
 }
 </script>
