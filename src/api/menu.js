@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList(parentId, params) {
   return request({
-    url: '/menu/list',
+    url: '/menu/list/'+ parentId,
     method: 'get',
     params: params
   })
@@ -38,11 +38,11 @@ export function getMenu(id) {
   })
 }
 
-export function updateHidden(id, params) {
+export function updateHidden(id, data) {
   return request({
     url: '/menu/updateHidden/' + id,
     method: 'post',
-    params: params
+    data: data
   })
 }
 

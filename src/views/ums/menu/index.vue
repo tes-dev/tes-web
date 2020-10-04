@@ -58,12 +58,12 @@
             <el-button
               size="mini"
               type="text"
-              @click="handleUpdate(scope.$index, scope.row)">编辑
+              @click="handleUpdate(scope.$index, scope.row)">编辑菜单
             </el-button>
             <el-button
               size="mini"
               type="text"
-              @click="handleDelete(scope.$index, scope.row)">删除
+              @click="handleDelete(scope.$index, scope.row)">删除菜单
             </el-button>
           </template>
         </el-table-column>
@@ -81,6 +81,37 @@
         :total="total">
       </el-pagination>
     </div>
+    <!-- <el-dialog
+      :title="isEdit?'编辑菜单':'添加菜单'"
+      :visible.sync="dialogVisible"
+      width="40%">
+      <el-form :model="role"
+               ref="roleForm"
+               label-width="150px" size="small">
+        <el-form-item label="菜单名称：">
+          <el-input v-model="role.title" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="菜单级数：">
+          <el-input v-model="role.level" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="前端名称：">
+          <el-input v-model="role.name" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="前端图标：">
+          <el-input v-model="role.icon" style="width: 250px"></el-input>
+        </el-form-item>
+        <el-form-item label="是否显示：">
+          <el-radio-group v-model="role.hidden">
+            <el-radio :label="1">是</el-radio>
+            <el-radio :label="0">否</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
+        <el-button type="primary" @click="handleDialogConfirm()" size="small">确 定</el-button>
+      </span>
+    </el-dialog> -->
   </div>
 </template>
 
@@ -141,16 +172,30 @@
         this.getList();
       },
       handleHiddenChange(index, row) {
+        this.$confirm('是否要修改该状态?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
         updateHidden(row.id,{hidden:row.hidden}).then(response=>{
           this.$message({
             message: '修改成功',
             type: 'success',
             duration: 1000
           });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消修改'
+          });
+         this.getList();
+        });
         });
       },
       handleShowNextLevel(index, row) {
-        this.$router.push({path: '/ums/menu', query: {parentId: row.id}})
+        this.parentId = row.id;
+        // this.$router.push({path: '/ums/menu', query: {parentId: row.id}})
+        this.getList();
       },
       handleUpdate(index, row) {
         this.$router.push({path:'/ums/updateMenu',query:{id:row.id}});

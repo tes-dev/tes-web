@@ -64,6 +64,20 @@ export const asyncRouterMap = [
       name: 'menu',
       component: () => import('@/views/ums/menu/index'),
       meta: { title: '菜单列表', icon: 'ums-menu' }
+    },
+    {
+      path: 'addMenu',
+      name: 'addMenu',
+      component: () => import('@/views/ums/menu/add'),
+      meta: {title: '添加菜单'},
+      hidden: true
+    },
+    {
+      path: 'updateMenu',
+      name: 'updateMenu',
+      component: () => import('@/views/ums/menu/update'),
+      meta: {title: '修改菜单'},
+      hidden: true
     }
     ]
   },

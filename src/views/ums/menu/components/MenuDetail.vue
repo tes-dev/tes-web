@@ -18,6 +18,12 @@
           </el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="菜单级数：">
+        <el-radio-group v-model="menu.level">
+          <el-radio :label="0">一级菜单</el-radio>
+          <el-radio :label="1">二级菜单</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="前端名称：" prop="name">
         <el-input v-model="menu.name"></el-input>
       </el-form-item>
