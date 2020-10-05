@@ -24,11 +24,11 @@ export function updateRole(id, data) {
   })
 }
 
-export function updateStatus(id, params) {
+export function updateStatus(id, data) {
   return request({
     url: '/role/updateStatus/' + id,
     method: 'post',
-    params: params
+    data: data
   })
 }
 
