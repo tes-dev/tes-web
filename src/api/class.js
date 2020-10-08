@@ -74,3 +74,11 @@ export function createClass(data) {
     data: data
   })
 }
+
+export function updateClass(id,data) {
+  return request({
+    url: '/class/update/'+ id,
+    method: 'post',
+    data: data
+  })
+}

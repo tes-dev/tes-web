@@ -25,7 +25,7 @@
           <template slot-scope="scope">{{ scope.row.no }}</template>
         </el-table-column>
 
-        <el-table-column label="是否显示" width="200" align="center">
+        <!-- <el-table-column label="是否显示" width="200" align="center">
           <template slot-scope="scope">
             <el-switch
               @change="handleShowStatusChange(scope.$index, scope.row)"
@@ -35,7 +35,7 @@
             >
             </el-switch>
           </template>
-        </el-table-column>
+        </el-table-column> -->
 
         <el-table-column label="操作" width="200" align="center">
           <template slot-scope="scope">

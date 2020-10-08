@@ -78,6 +78,13 @@ export const asyncRouterMap = [
       component: () => import('@/views/ums/menu/update'),
       meta: {title: '修改菜单'},
       hidden: true
+    },
+    {
+      path: 'allocMenu',
+      name: 'allocMenu',
+      component: () => import('@/views/ums/role/allocMenu'),
+      meta: {title: '分配菜单'},
+      hidden: true
     }
     ]
   },
@@ -104,7 +111,8 @@ export const asyncRouterMap = [
       name: 'course',
       component: () => import('@/views/lms/course/index'),
       meta: { title: '课程管理', icon: 'tms-course' }
-    }
+    },
+
     ]
   },
   {

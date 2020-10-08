@@ -68,9 +68,9 @@
         <el-table-column label="权限" align="center">
           <template slot-scope="scope">{{ scope.row.permission }}</template>
         </el-table-column>
-        <el-table-column label="权限图标" align="center">
+        <!-- <el-table-column label="权限图标" align="center">
           <template slot-scope="scope">{{ scope.row.icon }}</template>
-        </el-table-column>
+        </el-table-column> -->
         <el-table-column label="是否启用" width="140" align="center">
           <template slot-scope="scope">
             <el-switch
@@ -123,9 +123,9 @@
         <el-form-item label="权限：">
           <el-input v-model="admin.permission" style="width: 250px"></el-input>
         </el-form-item>
-        <el-form-item label="权限图标：">
+        <!-- <el-form-item label="权限图标：">
           <el-select v-model="admin.icon" style="width: 250px"></el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="是否启用：">
           <el-radio-group v-model="admin.status">
             <el-radio :label="1">是</el-radio>
