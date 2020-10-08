@@ -7,11 +7,19 @@ export function fetchList(id) {
   })
 }
 
-export function evalItem(data) {
+export function evalItem(params) {
   return request({
     url: '/eval/startEvaluation',
     method: 'post',
-    data: data
+    params: params
+  })
+}
+
+export function commitEval(params) {
+  return request({
+    url: '/evalResult/commit',
+    method: 'post',
+    params: params
   })
 }
 

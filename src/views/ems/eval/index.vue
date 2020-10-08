@@ -58,19 +58,18 @@
         </el-table-column>
         <el-table-column label="选项" align="center">
           <template slot-scope="scope">
-            <el-radio-group v-model="radio">
-              <el-radio :label="1">A</el-radio>
-              <el-radio :label="2">B</el-radio>
-              <el-radio :label="3">C</el-radio>
-              <el-radio :label="4">D</el-radio>
+            <el-radio-group v-model="radios[scope.$index]">
+              <el-radio :label="0">非常满意</el-radio>
+              <el-radio :label="1">满意</el-radio>
+              <el-radio :label="2">一般</el-radio>
+              <el-radio :label="3">不满意</el-radio>
             </el-radio-group>
           </template>
         </el-table-column>
       </el-table>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleDialogConfirm()" size="small"
-          >确 定</el-button
+      <span slot="footer" class="dialog-footer" style="margin-right: 30px">
+        <el-button type="primary" @click="handleDialogConfirm()"
+          >提 交</el-button
         >
       </span>
     </el-dialog>
@@ -78,7 +77,7 @@
 </template>
 
 <script>
-import { fetchList, evalItem } from '@/api/eval'
+import { fetchList, evalItem, commitEval } from '@/api/eval'
 import { setSupport, getSupport, setCookie, getCookie } from '@/utils/support'
 
 export default {
@@ -90,7 +89,8 @@ export default {
       no: null,
       dialogVisible: false,
       evalItemList: null,
-      radio: 1,
+      radios: [],
+      commitIndex: null,
     }
   },
   created() {
@@ -104,12 +104,14 @@ export default {
       fetchList(this.no).then(res => {
         this.listLoading = false
         this.evalList = res.data
+
       })
     },
     handleEval(index, row) {
       console.log("开始评教 id: " + index)
       console.log(row)
       this.dialogVisible = true
+      this.commitIndex = index
       this.getEvalItem(row)
     },
     getEvalItem(row) {
@@ -118,12 +120,68 @@ export default {
       })
     },
     handleClose(done) {
-      this.$confirm('确认关闭？').then(_ => {
+      this.$confirm('确认关闭？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(_ => {
         done()
+        this.radios = []
       }).catch(_ => { })
     },
     handleDialogConfirm() {
-      console.log("点击提交")
+      let radios = this.radios
+      let flag = false
+      this.$confirm('是否提交评教结果?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'success'
+      }).then(() => {
+        if (radios.length === 10) {
+          for (let i = 0; i < radios.length; i++) {
+            if (typeof (radios[i]) == "undefined") {
+              flag = true
+              break
+            }
+          }
+
+          if (flag) {
+            this.$message.error('还有未选的选项')
+          } else {
+            // 交互代码
+            // 组合发送对象
+            let evalItemList = this.evalItemList
+            let weightList = []
+            for (let i = 0; i < evalItemList.length; i++) {
+              weightList.push(evalItemList[i].weight)
+            }
+            console.log(weightList)
+
+            let index = this.commitIndex
+            let params = new URLSearchParams()
+            params.append('radios', this.radios)
+            params.append('weights', weightList)
+            params.append('userId', this.evalList[index].userId)
+            params.append('roleId', this.evalList[index].roleId)
+            params.append('targetId', this.evalList[index].targetId)
+            params.append('courseId', this.evalList[index].courseId)
+            commitEval(params).then(res => {
+              // 提交后，隐藏开始评教按钮
+              this.disableList[index] = false
+              this.$message({
+                type: 'success',
+                message: '提交成功'
+              })
+              this.dialogVisible = false
+            })
+          }
+
+        } else {
+          this.$message.error('还有未选的选项')
+        }
+      }).catch(() => {
+        console.log('取消')
+      })
     }
   }
 }

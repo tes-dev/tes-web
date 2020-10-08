@@ -69,14 +69,14 @@ export const asyncRouterMap = [
       path: 'addMenu',
       name: 'addMenu',
       component: () => import('@/views/ums/menu/add'),
-      meta: {title: '添加菜单'},
+      meta: { title: '添加菜单' },
       hidden: true
     },
     {
       path: 'updateMenu',
       name: 'updateMenu',
       component: () => import('@/views/ums/menu/update'),
-      meta: {title: '修改菜单'},
+      meta: { title: '修改菜单' },
       hidden: true
     },
     {
@@ -146,14 +146,26 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: '/eval',
     name: 'eval',
-    meta: { title: '参加评教', icon: 'ems' },
+    meta: { title: '评教', icon: 'ems' },
     children: [
       {
         path: 'eval1',
         name: 'eval1',
         component: () => import('@/views/ems/eval/index'),
         meta: { title: '参加评教', icon: 'ems' }
-      }
+      },
+      {
+        path: 'eval2',
+        name: 'eval2',
+        component: () => import('@/views/ems/eval/index'),
+        meta: { title: '同行评教', icon: 'ems' }
+      },
+      {
+        path: 'eval3',
+        name: 'eval3',
+        component: () => import('@/views/ems/eval/index'),
+        meta: { title: '查看评教情况', icon: 'ems-anal' }
+      },
     ]
   },
   { path: '*', redirect: '/404', hidden: true }
