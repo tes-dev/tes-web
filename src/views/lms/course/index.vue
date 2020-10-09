@@ -68,6 +68,7 @@
         <el-table-column label="课程编号" align="center">
           <template slot-scope="scope">{{ scope.row.num }}</template>
         </el-table-column>
+        
         <el-table-column label="操作" width="240" align="center">
           <template slot-scope="scope">
             <el-button
@@ -112,6 +113,9 @@
         <el-form-item label="课程编号：">
           <el-input v-model="admin.num" style="width: 250px"></el-input>
         </el-form-item>
+        <!-- <el-form-item label="学期：">
+          <el-input v-model="admin.semesterId" style="width: 250px"></el-input>
+        </el-form-item> -->
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false" size="small">取 消</el-button>
@@ -139,6 +143,7 @@ const defaultAdmin = {
   id: null,
   name: null,
   num: null,
+  semesterId:null
 }
 export default {
   name: 'adminList',

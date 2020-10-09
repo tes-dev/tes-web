@@ -71,6 +71,9 @@
         <!-- <el-table-column label="权限图标" align="center">
           <template slot-scope="scope">{{ scope.row.icon }}</template>
         </el-table-column> -->
+        <el-table-column label="创建时间" align="center">
+          <template slot-scope="scope">{{ scope.row.createTime | formatDateTime }}</template>
+        </el-table-column>
         <el-table-column label="是否启用" width="140" align="center">
           <template slot-scope="scope">
             <el-switch
@@ -114,18 +117,22 @@
       width="40%"
     >
       <el-form :model="admin" ref="adminForm" label-width="150px" size="small">
-        <!-- <el-form-item label="权限编号：">
-          <el-input v-model="admin.id" style="width: 250px"></el-input>
-        </el-form-item> -->
         <el-form-item label="权限名称：">
           <el-input v-model="admin.name" style="width: 250px"></el-input>
         </el-form-item>
         <el-form-item label="权限：">
           <el-input v-model="admin.permission" style="width: 250px"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="权限图标：">
-          <el-select v-model="admin.icon" style="width: 250px"></el-select>
-        </el-form-item> -->
+        <el-form-item label="创建时间：">
+          <el-date-picker
+            v-model="admin.createTime"
+            type="datetime"
+            format="yyyy-MM-dd HH:mm:ss"
+            start-placeholde="创建时间"
+            style="width: 250px"
+          >
+          </el-date-picker>
+        </el-form-item>
         <el-form-item label="是否启用：">
           <el-radio-group v-model="admin.status">
             <el-radio :label="1">是</el-radio>
@@ -159,7 +166,7 @@ const defaultAdmin = {
   id: null,
   name: null,
   permission: null,
-  icon: null,
+  createTime:null,
   status: 1
 }
 export default {
@@ -195,6 +202,7 @@ export default {
     }
   },
   methods: {
+    
     handleResetSearch() {
       this.listQuery = Object.assign({}, defaultListQuery)
     },
