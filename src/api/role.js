@@ -60,11 +60,11 @@ export function listResourceByRole(roleId) {
   })
 }
 
-export function allocMenu(data) {
+export function allocMenu(params) {
   return request({
     url: '/role/allocMenu',
     method: 'post',
-    data: data
+    params: params
   })
 }
 

@@ -30,7 +30,8 @@
           children: 'children',
           label: 'title'
         },
-        roleId:null
+        roleId:null,
+        // menuIds:null
       };
     },
     created() {
@@ -51,9 +52,9 @@
           if(menuList!=null&&menuList.length>0){
             for(let i=0;i<menuList.length;i++){
               let menu = menuList[i];
-              if(menu.parentId!==0){
+              // if(menu.parentId!==0){
                 checkedMenuIds.push(menu.id);
-              }
+              // }
             }
           }
           this.$refs.tree.setCheckedKeys(checkedMenuIds);
@@ -79,6 +80,7 @@
           let params = new URLSearchParams();
           params.append("roleId",this.roleId);
           params.append("menuIds",Array.from(checkedMenuIds));
+          // this.menuIds = Array.from(checkedMenuIds);
           allocMenu(params).then(response => {
             this.$message({
               message: '分配成功',
