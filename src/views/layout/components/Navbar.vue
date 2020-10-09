@@ -28,12 +28,12 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-import avatar from '@/assets/images/avatar.png'
+import Avatar from '@/assets/images/avatar.png'
 
 export default {
   data() {
     return {
-      avatar
+      avatar: Avatar
     }
   },
   components: {
@@ -43,7 +43,6 @@ export default {
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar',
       'name'
     ])
   },

@@ -23,4 +23,12 @@ export function commitEval(params) {
   })
 }
 
+export function getEvalControlList() {
+  return request({
+    url: '/eval/control/list',
+    method: 'get',
+  })
+}
+
+
 

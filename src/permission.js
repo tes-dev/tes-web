@@ -15,7 +15,7 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.getters.roles.length === 0) {
         store.dispatch('GetInfo').then(res => { // 拉取用户信息
-          console.log("到这里")
+          console.log("run with permission.js")
           let menus = res.data.menus
           let username = res.data.username
           store.dispatch('GenerateRoutes', { menus, username }).then(() => { // 生成可访问的路由表

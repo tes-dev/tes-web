@@ -1,6 +1,14 @@
 <template>
-  <div class="scroll-container" ref="scrollContainer" @wheel.prevent="handleScroll" >
-    <div class="scroll-wrapper" ref="scrollWrapper" :style="{top: top + 'px'}">
+  <div
+    class="scroll-container"
+    ref="scrollContainer"
+    @wheel.prevent="handleScroll"
+  >
+    <div
+      class="scroll-wrapper"
+      ref="scrollWrapper"
+      :style="{ top: top + 'px' }"
+    >
       <slot></slot>
     </div>
   </div>
@@ -42,7 +50,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import '../../styles/variables.scss';
+@import "../../styles/variables.scss";
 
 .scroll-container {
   position: relative;
@@ -51,7 +59,7 @@ export default {
   background-color: $menuBg;
   .scroll-wrapper {
     position: absolute;
-     width: 100%!important;
+    width: 100% !important;
   }
 }
 </style>

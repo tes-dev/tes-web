@@ -35,13 +35,15 @@
 
 <script>
 import { fetchList } from '@/api/batch'
+import { getEvalControlList } from '@/api/eval'
 export default {
   name: "anal",
   data() {
     return {
       semesterList: null,
       value: true,
-      dialogVisible: false
+      dialogVisible: false,
+      controlList: null,
     }
   },
   created() {
@@ -49,9 +51,14 @@ export default {
   },
   methods: {
     getData() {
+      // 获取学期列表
       fetchList().then(res => {
         // 将一维数组转换为二维数组
         this.change2Array(res.data)
+      })
+      // 获取评教控制表数据
+      getEvalControlList().then(res => {
+        this.controlList = res.data
       })
     },
     change2Array(arr) {
