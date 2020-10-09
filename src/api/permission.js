@@ -31,3 +31,10 @@ export function updateStatus(id, data) {
   })
 }
 
+export function deleteSelect(id) {
+  return request({
+    url: '/permission/deleteSelect/' + id,
+    method: 'get'
+  })
+}
+

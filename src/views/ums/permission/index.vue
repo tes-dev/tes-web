@@ -155,7 +155,7 @@ import { updateAdmin, getRoleByAdmin, allocRole } from '@/api/login'
 import { formatDate } from '@/utils/date'
 import { getClassList } from '@/api/class'
 import { getDeptList } from '@/api/dept'
-import { fetchList,createAdmin,deleteAdmin,updateStatus } from '@/api/permission'
+import { fetchList,createAdmin,deleteAdmin,updateStatus,deleteSelect } from '@/api/permission'
 
 const defaultListQuery = {
   pageNum: 1,
@@ -185,7 +185,7 @@ export default {
       allRoleList: [],
       userId: null,
       classList: [],
-      deptList: [],
+      deptList: []
     }
   },
   created() {
@@ -250,12 +250,24 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        deleteAdmin(row.id).then(response => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          })
-          this.getList()
+        deleteSelect(row.id).then(response => {
+          let count = response.data;
+          // alert(count);
+          if(count >= 1){
+            this.$message({
+              type: 'info',
+              message: '该权限有角色使用不能删除'
+            })
+          }else{
+            deleteAdmin(row.id).then(response => {
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              })
+              this.getList()
+            })
+          }
+          // this.getList()
         })
       })
     },

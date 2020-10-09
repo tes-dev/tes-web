@@ -68,6 +68,18 @@
         <el-table-column label="课程编号" align="center">
           <template slot-scope="scope">{{ scope.row.num }}</template>
         </el-table-column>
+        <el-table-column label="课程学期" align="center">
+          <template slot-scope="scope">
+            <div v-if="scope.row.semesterId == 1">第一学期</div>
+            <div v-if="scope.row.semesterId == 2">第二学期</div>
+            <div v-if="scope.row.semesterId == 3">第三学期</div>
+            <div v-if="scope.row.semesterId == 4">第四学期</div>
+            <div v-if="scope.row.semesterId == 5">第五学期</div>
+            <div v-if="scope.row.semesterId == 6">第六学期</div>
+            <div v-if="scope.row.semesterId == 7">第七学期</div>
+            <div v-if="scope.row.semesterId == 8">第八学期</div>
+          </template>
+        </el-table-column>
         
         <el-table-column label="操作" width="240" align="center">
           <template slot-scope="scope">
@@ -113,9 +125,17 @@
         <el-form-item label="课程编号：">
           <el-input v-model="admin.num" style="width: 250px"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="学期：">
-          <el-input v-model="admin.semesterId" style="width: 250px"></el-input>
-        </el-form-item> -->
+        <el-form-item label="课程学期：">
+          <el-select v-model="admin.semesterId" style="width: 250px"
+          placeholder="请选择">
+            <el-option
+              v-for="item in allSemester"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+              </el-option>
+          </el-select>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false" size="small">取 消</el-button>
@@ -128,7 +148,7 @@
 </template>
 <script>
 import { updateAdmin, getRoleByAdmin, allocRole } from '@/api/login'
-// import { fetchAllRoleList } from '@/api/role'
+import { fetchAllSemesterList } from '@/api/semester'
 import { formatDate } from '@/utils/date'
 import { getClassList } from '@/api/class'
 import { getDeptList } from '@/api/dept'
@@ -158,7 +178,7 @@ export default {
       isEdit: false,
       allocDialogVisible: false,
       roleId: null,
-      allRoleList: [],
+      allSemester: [],
       userId: null,
       classList: [],
       deptList: [],
@@ -166,7 +186,7 @@ export default {
   },
   created() {
     this.getList()
-    // this.getAllRoleList()
+    this.getAllSemesterList()
   },
   filters: {
     formatDateTime(time) {
@@ -306,11 +326,11 @@ export default {
         this.total = response.data.total
       })
     },
-    // getAllRoleList() {
-    //   fetchAllRoleList().then(response => {
-    //     this.allRoleList = response.data
-    //   })
-    // },
+    getAllSemesterList() {
+      fetchAllSemesterList().then(response => {
+        this.allSemester = response.data
+      })
+    },
     getRoleListByAdmin(id) {
       getRoleByAdmin(id).then(response => {
         let allocRoleList = response.data
