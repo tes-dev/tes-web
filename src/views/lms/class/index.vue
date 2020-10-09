@@ -18,11 +18,28 @@
         <el-table-column label="编号" width="200" align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column label="班级名称" align="center" width="245">
+        <el-table-column label="班级名称" align="center" width="300">
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
         <el-table-column label="班级代码" width="200" align="center">
           <template slot-scope="scope">{{ scope.row.no }}</template>
+        </el-table-column>
+        
+        <el-table-column label="学院" width="200" align="center">
+          <template slot-scope="scope">
+            <!-- {{ scope.row.deptNo }} -->
+            <div v-if="scope.row.deptNo == '01101'">计算机与物联网学院</div>
+            <div v-else-if="scope.row.deptNo == '01102'">软件学院</div>
+            <div v-else-if="scope.row.deptNo == '01103'">电子信息学院</div>
+            <div v-else-if="scope.row.deptNo == '01104'">土木工程学院</div>
+            <div v-else-if="scope.row.deptNo == '01105'">数字艺术学院</div>
+            <div v-else-if="scope.row.deptNo == '01106'">管理学院</div>
+            <div v-else-if="scope.row.deptNo == '01107'">大数据与人工智能学院</div>
+            <div v-else-if="scope.row.deptNo == '02101'">通识学院</div>
+            <div v-else-if="scope.row.deptNo == '009'">第九学院2</div>
+            <div v-else-if="scope.row.deptNo == '01109'">软件与计算机学院</div>
+            <div v-else>未知</div>
+          </template>
         </el-table-column>
 
         <!-- <el-table-column label="是否显示" width="200" align="center">
@@ -38,7 +55,7 @@
           </template>
         </el-table-column> -->
 
-        <el-table-column label="操作" width="250" align="center">
+        <el-table-column label="操作" width="245" align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -87,6 +104,12 @@
         <el-form-item label="班级编号：">
           <el-input v-model="tesclass.no" style="width: 250px"></el-input>
         </el-form-item>
+        <el-form-item label="院系：">
+          <!-- <el-input v-model="tesclass.deptNo" style="width: 250px"></el-input> -->
+          <el-select v-model="tesclass.deptNo" placeholder="请选择" style="width: 250px">
+            <el-option v-for="item in deptnoArr" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+        </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false" size="small">取 消</el-button>
@@ -108,12 +131,25 @@ const defaultListQuery = {
 const defaultTesclass = {
   id: null,
   name: null,
-  no: null
+  no: null,
+  deptNo: null
 }
 export default {
   name: "classManagementList",
   data() {
     return {
+      deptnoArr:[
+        {value:'01101',label:'计算机与物联网学院'},
+        {value:'01102',label:'软件学院'},
+        {value:'01103',label:'电子信息学院'},
+        {value:'01104',label:'土木工程学院'},
+        {value:'01105',label:'数字艺术学院'},
+        {value:'01106',label:'管理学院'},
+        {value:'01107',label:'大数据与人工智能学院'},
+        {value:'02101',label:'通识学院'},
+        {value:'009',label:'第九学院2'},
+        {value:'01109',label:'软件与计算机学院'}
+      ],
       listQuery: Object.assign({}, defaultListQuery),
       list: null,
       total: null,
