@@ -60,18 +60,11 @@ export function createClass(data) {
   })
 }
 
-export function updateClass(id,data) {
+export function updateClass(id, data) {
   return request({
-    url:'/class/update/' +id,
-    method:'post',
-    data: data
-  })
-}
-
-export function updateClass(id,data) {
-  return request({
-    url: '/class/update/'+ id,
+    url: '/class/update/' + id,
     method: 'post',
     data: data
   })
 }
+
