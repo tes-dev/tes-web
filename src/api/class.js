@@ -52,25 +52,18 @@ export function updateShowStatus(data) {
   })
 }
 
-export function updateNavStatus(data) {
+export function createClass(data) {
   return request({
-    url: '/productCategory/update/navStatus',
+    url: '/class/create',
     method: 'post',
     data: data
   })
 }
 
-export function fetchListWithChildren() {
+export function updateClass(id,data) {
   return request({
-    url: '/productCategory/list/withChildren',
-    method: 'get'
-  })
-}
-
-export function createClass(data) {
-  return request({
-    url: '/class/create',
-    method: 'post',
+    url:'/class/update/' +id,
+    method:'post',
     data: data
   })
 }

@@ -18,7 +18,7 @@
         <el-table-column label="编号" width="200" align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
-        <el-table-column label="班级名称" align="center" width="200">
+        <el-table-column label="班级名称" align="center" width="245">
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
         <el-table-column label="班级代码" width="200" align="center">
@@ -26,6 +26,7 @@
         </el-table-column>
 
         <!-- <el-table-column label="是否显示" width="200" align="center">
+        <el-table-column label="所属院系" width="250" align="center">
           <template slot-scope="scope">
             <el-switch
               @change="handleShowStatusChange(scope.$index, scope.row)"
@@ -37,7 +38,7 @@
           </template>
         </el-table-column> -->
 
-        <el-table-column label="操作" width="200" align="center">
+        <el-table-column label="操作" width="250" align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -98,7 +99,7 @@
 </template>
 
 <script>
-import { fetchList, deleteClass, updateShowStatus, updateNavStatus, createClass } from '@/api/class'
+import { fetchList, deleteClass, updateClass, createClass } from '@/api/class'
 const defaultListQuery = {
   pageNum: 1,
   pageSize: 5,
@@ -148,20 +149,6 @@ export default {
       this.listQuery.pageNum = val
       this.getList()
     },
-    handleShowStatusChange(index, row) {
-      let data = new URLSearchParams()
-      let ids = []
-      ids.push(row.id)
-      data.append('ids', ids)
-      data.append('showStatus', row.showStatus)
-      updateShowStatus(data).then(response => {
-        this.$message({
-          message: '修改成功',
-          type: 'success',
-          duration: 1000
-        })
-      })
-    },
 
     handleDialogConfirm() {
       this.$confirm('是否要确认?', '提示', {
@@ -192,7 +179,9 @@ export default {
     },
 
     handleUpdate(index, row) {
-      this.$router.push({ path: '/pms/updateProductCate', query: { id: row.id } })
+      this.dialogVisible = true;
+        this.isEdit = true;
+        this.tesclass = Object.assign({},row);
     },
     handleDelete(index, row) {
       this.$confirm('是否要删除该班级', '提示', {
@@ -211,22 +200,7 @@ export default {
       })
     }
   },
-  filters: {
-    levelFilter(value) {
-      if (value === 0) {
-        return '一级'
-      } else if (value === 1) {
-        return '二级'
-      }
-    },
-    disableNextLevel(value) {
-      if (value === 0) {
-        return false
-      } else {
-        return true
-      }
-    }
-  }
+  
 }
 </script>
 
