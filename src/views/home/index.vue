@@ -1,69 +1,60 @@
 <template>
   <div class="app-container">
     <div class="un-handle-layout">
-      <div class="layout-title">待处理事务</div>
-      <div class="un-handle-content">
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">待付款订单</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">已完成订单</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">待确认收货订单</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">待发货订单</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">新缺货登记</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">待处理退款申请</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">已发货订单</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">待处理退货订单</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-          <el-col :span="8">
-            <div class="un-handle-item">
-              <span class="font-medium">广告位即将到期</span>
-              <span style="float: right" class="color-danger">(10)</span>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
+      <el-row :gutter="20">
+        <el-col :span="6">
+          <el-card class="box-card">
+            <el-row>
+              <el-col class="el-icon-user" :span="12"></el-col>
+              <el-col :span="12">
+                <ul>
+                <li><span>学生总数</span></li>
+                <li><span>1</span></li>
+              </ul>
+              </el-col>
+            </el-row>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card class="box-card">
+            <el-row>
+              <el-col class="el-icon-s-custom" :span="12"></el-col>
+              <el-col :span="12">
+                <ul>
+                <li><span>教师总数</span></li>
+                <li><span>1</span></li>
+              </ul>
+              </el-col>
+            </el-row>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card class="box-card">
+            <el-row>
+              <el-col class="el-icon-s-promotion" :span="12"></el-col>
+              <el-col :span="12">
+                <ul>
+                <li><span>班级总数</span></li>
+                <li><span>1</span></li>
+              </ul>
+              </el-col>
+            </el-row>
+          </el-card>
+        </el-col>
+        <el-col :span="6">
+          <el-card class="box-card">
+            <el-row>
+              <el-col class="el-icon-school" :span="12"></el-col>
+              <el-col :span="12">
+                <ul>
+                <li><span>学院总数</span></li>
+                <li><span>1</span></li>
+              </ul>
+              </el-col>
+            </el-row>
+          </el-card>
+        </el-col>
+      </el-row>
     </div>
     <div class="overview-layout">
       <el-row :gutter="20">
@@ -315,6 +306,13 @@ export default {
 </script>
 
 <style scoped>
+ul{
+  text-align: center;
+}
+li{
+  list-style: none;
+  font-size: 15px;
+}
 .app-container {
   margin-top: 40px;
   margin-left: 120px;
@@ -359,6 +357,7 @@ export default {
 .un-handle-layout {
   margin-top: 20px;
   border: 1px solid #dcdfe6;
+  border: none;
 }
 
 .layout-title {
@@ -409,5 +408,12 @@ export default {
 .address-content {
   padding: 20px;
   font-size: 18px;
+}
+.el-icon-user,.el-icon-s-custom,.el-icon-s-promotion,.el-icon-school{
+  font-size: 50px;
+  color:rgb(78,205,202);
+}
+.box-card{
+  text-align: center;
 }
 </style>
