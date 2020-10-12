@@ -41,3 +41,10 @@ export function createAdmin(data) { //添加学院
     data: data
   })
 }
+export function AllDeptList() {
+  return request({
+    url: '/dept/all',
+    method: 'get',
+  })
+}
+
