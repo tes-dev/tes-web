@@ -6,10 +6,10 @@
           <el-card class="box-card">
             <el-row>
               <el-col class="el-icon-user" :span="12"></el-col>
-              <el-col :span="12">
+              <el-col :span="12" class="textSize">
                 <ul>
                 <li><span>学生总数</span></li>
-                <li><span>1</span></li>
+                <li><span v-text="countStudent+'人'"></span></li>
               </ul>
               </el-col>
             </el-row>
@@ -19,10 +19,10 @@
           <el-card class="box-card">
             <el-row>
               <el-col class="el-icon-s-custom" :span="12"></el-col>
-              <el-col :span="12">
+              <el-col :span="12" class="textSize">
                 <ul>
                 <li><span>教师总数</span></li>
-                <li><span>1</span></li>
+                <li><span v-text="countTeacher+'人'"></span></li>
               </ul>
               </el-col>
             </el-row>
@@ -32,10 +32,10 @@
           <el-card class="box-card">
             <el-row>
               <el-col class="el-icon-s-promotion" :span="12"></el-col>
-              <el-col :span="12">
+              <el-col :span="12" class="textSize">
                 <ul>
                 <li><span>班级总数</span></li>
-                <li><span>1</span></li>
+                <li><span v-text="countClass+'班'"></span></li>
               </ul>
               </el-col>
             </el-row>
@@ -45,10 +45,10 @@
           <el-card class="box-card">
             <el-row>
               <el-col class="el-icon-school" :span="12"></el-col>
-              <el-col :span="12">
+              <el-col :span="12" class="textSize">
                 <ul>
                 <li><span>学院总数</span></li>
-                <li><span>1</span></li>
+                <li><span v-text="countDepartment+'院'"></span></li>
               </ul>
               </el-col>
             </el-row>
@@ -198,6 +198,7 @@ import { str2Date } from '@/utils/date'
 import img_home_order from '@/assets/images/home_order.png'
 import img_home_today_amount from '@/assets/images/home_today_amount.png'
 import img_home_yesterday_amount from '@/assets/images/home_yesterday_amount.png'
+import { selectStudent,selectTeacher,selectClass,selectDepartment } from '@/api/home'
 const DATA_FROM_BACKEND = {
   columns: ['date', 'orderCount', 'orderAmount'],
   rows: [
@@ -222,6 +223,10 @@ export default {
   name: 'home',
   data() {
     return {
+      countStudent: 0,
+      countTeacher: 0,
+      countClass: 0,
+      countDepartment: 0,
       pickerOptions: {
         shortcuts: [{
           text: '最近一周',
@@ -268,6 +273,7 @@ export default {
   created() {
     this.initOrderCountDate()
     this.getData()
+    this.getCount()
   },
   methods: {
     handleDateChange() {
@@ -300,8 +306,23 @@ export default {
         this.dataEmpty = false
         this.loading = false
       }, 1000)
+    },
+    getCount(){
+      selectStudent().then(Response =>{
+        this.countStudent = Response.data;
+      }),
+      selectTeacher().then(Response => {
+        this.countTeacher = Response.data;
+      }),
+      selectClass().then(Response => {
+        this.countClass = Response.data;
+      }),
+      selectDepartment().then(Response => {
+        this.countDepartment = Response.data;
+      })
     }
   }
+  
 }
 </script>
 
@@ -311,7 +332,6 @@ ul{
 }
 li{
   list-style: none;
-  font-size: 15px;
 }
 .app-container {
   margin-top: 40px;
@@ -411,9 +431,13 @@ li{
 }
 .el-icon-user,.el-icon-s-custom,.el-icon-s-promotion,.el-icon-school{
   font-size: 50px;
-  color:rgb(78,205,202);
+  color:rgb(79,192,141);
+  margin-top: 10px;
 }
-.box-card{
-  text-align: center;
+.box-card .el-col{
+  height: 70px;
+}
+.textSize{
+  font-size: 20px;
 }
 </style>
