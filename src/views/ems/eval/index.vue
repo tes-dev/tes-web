@@ -167,7 +167,7 @@ export default {
             params.append('courseId', this.evalList[index].courseId)
             commitEval(params).then(res => {
               // 提交后，隐藏开始评教按钮
-              this.disableList[index] = false
+              // this.disableList[index] = false
               this.$message({
                 type: 'success',
                 message: '提交成功'

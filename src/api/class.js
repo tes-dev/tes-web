@@ -7,6 +7,13 @@ export function getClassList() {
   })
 }
 
+export function getAllClassList() {
+  return request({
+    url: '/class/all',
+    method: 'get',
+  })
+}
+
 export function fetchList(params) {
   return request({
     url: '/class/list',
@@ -62,7 +69,7 @@ export function createClass(data) {
 
 export function updateClass(id, data) {
   return request({
-    url: '/class/update/'+ id,
+    url: '/class/update/' + id,
     method: 'post',
     data: data
   })

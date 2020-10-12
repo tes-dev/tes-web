@@ -78,3 +78,14 @@ export function allocRole(data) {
     data: data
   })
 }
+
+export function upload(data) {
+  return request({
+    url: '/user/upload',
+    method: 'post',
+    data: data,
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  })
+}

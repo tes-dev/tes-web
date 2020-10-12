@@ -6,6 +6,14 @@ export function getDeptList() {
     method: 'get',
   })
 }
+
+export function getAllDeptList() {
+  return request({
+    url: '/dept/all',
+    method: 'get',
+  })
+}
+
 export function fetchList(params) {//查看学院
   return request({
     url: '/dept/list',
@@ -22,7 +30,7 @@ export function updateAdmin(id, data) {//修改学院
 }
 export function deleteAdmin(id) { //删除学院
   return request({
-    url: '/dept/deleteByid/' + id,
+    url: '/dept/deleteById/' + id,
     method: 'post'
   })
 }

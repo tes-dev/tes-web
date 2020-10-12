@@ -15,17 +15,17 @@
         v-loading="listLoading"
         border
       >
-        <el-table-column label="编号" width="200" align="center">
+        <el-table-column label="编号" align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
         <el-table-column label="班级名称" align="center" width="300">
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
-        <el-table-column label="班级代码" width="200" align="center">
+        <el-table-column label="班级代码" align="center">
           <template slot-scope="scope">{{ scope.row.no }}</template>
         </el-table-column>
-        
-        <el-table-column label="学院" width="200" align="center">
+
+        <el-table-column label="学院" align="center">
           <template slot-scope="scope">
             <!-- {{ scope.row.deptNo }} -->
             <div v-if="scope.row.deptNo == '01101'">计算机与物联网学院</div>
@@ -34,7 +34,9 @@
             <div v-else-if="scope.row.deptNo == '01104'">土木工程学院</div>
             <div v-else-if="scope.row.deptNo == '01105'">数字艺术学院</div>
             <div v-else-if="scope.row.deptNo == '01106'">管理学院</div>
-            <div v-else-if="scope.row.deptNo == '01107'">大数据与人工智能学院</div>
+            <div v-else-if="scope.row.deptNo == '01107'">
+              大数据与人工智能学院
+            </div>
             <div v-else-if="scope.row.deptNo == '02101'">通识学院</div>
             <div v-else-if="scope.row.deptNo == '009'">第九学院2</div>
             <div v-else-if="scope.row.deptNo == '01109'">软件与计算机学院</div>
@@ -55,7 +57,7 @@
           </template>
         </el-table-column> -->
 
-        <el-table-column label="操作" width="245" align="center">
+        <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -106,8 +108,17 @@
         </el-form-item>
         <el-form-item label="院系：">
           <!-- <el-input v-model="tesclass.deptNo" style="width: 250px"></el-input> -->
-          <el-select v-model="tesclass.deptNo" placeholder="请选择" style="width: 250px">
-            <el-option v-for="item in deptnoArr" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select
+            v-model="tesclass.deptNo"
+            placeholder="请选择"
+            style="width: 250px"
+          >
+            <el-option
+              v-for="item in deptnoArr"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -138,17 +149,17 @@ export default {
   name: "classManagementList",
   data() {
     return {
-      deptnoArr:[
-        {value:'01101',label:'计算机与物联网学院'},
-        {value:'01102',label:'软件学院'},
-        {value:'01103',label:'电子信息学院'},
-        {value:'01104',label:'土木工程学院'},
-        {value:'01105',label:'数字艺术学院'},
-        {value:'01106',label:'管理学院'},
-        {value:'01107',label:'大数据与人工智能学院'},
-        {value:'02101',label:'通识学院'},
-        {value:'009',label:'第九学院2'},
-        {value:'01109',label:'软件与计算机学院'}
+      deptnoArr: [
+        { value: '01101', label: '计算机与物联网学院' },
+        { value: '01102', label: '软件学院' },
+        { value: '01103', label: '电子信息学院' },
+        { value: '01104', label: '土木工程学院' },
+        { value: '01105', label: '数字艺术学院' },
+        { value: '01106', label: '管理学院' },
+        { value: '01107', label: '大数据与人工智能学院' },
+        { value: '02101', label: '通识学院' },
+        { value: '009', label: '第九学院2' },
+        { value: '01109', label: '软件与计算机学院' }
       ],
       listQuery: Object.assign({}, defaultListQuery),
       list: null,
@@ -215,9 +226,9 @@ export default {
     },
 
     handleUpdate(index, row) {
-      this.dialogVisible = true;
-        this.isEdit = true;
-        this.tesclass = Object.assign({},row);
+      this.dialogVisible = true
+      this.isEdit = true
+      this.tesclass = Object.assign({}, row)
     },
     handleDelete(index, row) {
       this.$confirm('是否要删除该班级', '提示', {
@@ -236,7 +247,7 @@ export default {
       })
     }
   },
-  
+
 }
 </script>
 

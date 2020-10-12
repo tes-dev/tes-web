@@ -54,7 +54,7 @@
         size="mini"
         type="primary"
         class="btn-add"
-        @click="handleAdd()"
+        @click="handleImport()"
         style="margin-left: 20px"
         >导入用户</el-button
       >
@@ -230,8 +230,7 @@
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click=
-        "handleDialogConfirm()" size="small"
+        <el-button type="primary" @click="handleDialogConfirm()" size="small"
           >确 定</el-button
         >
       </span>
@@ -263,14 +262,64 @@
         >
       </span>
     </el-dialog>
+
+    <el-dialog
+      title="导入用户"
+      :visible.sync="dialogImportVisible"
+      width="450px"
+    >
+      <el-button type="primary" style="margin-left: 20px">
+        <a href="https://maxwell-oss.oss-cn-shenzhen.aliyuncs.com/template.xlsx"
+          >下载模板文件</a
+        >
+      </el-button>
+      <div class="app-container">
+        <!-- <upload-excel-component
+          :on-success="handleSuccess"
+          :before-upload="beforeUpload"
+        /> -->
+
+        <el-upload
+          class="upload-demo"
+          drag
+          action="123"
+          name="excelFile"
+          :http-request="uploadExcel"
+          :on-success="handleSuccess"
+          :before-upload="beforeUpload"
+        >
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <div class="el-upload__tip" slot="tip">
+            只能上传xls/xlxs文件，且不超过1MB
+          </div>
+        </el-upload>
+
+        <!-- <el-table
+          :data="tableData"
+          border
+          highlight-current-row
+          style="width: 100%; margin-top: 20px"
+        >
+          <el-table-column
+            v-for="item of tableHeader"
+            :key="item"
+            :prop="item"
+            :label="item"
+          />
+        </el-table> -->
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
-import { fetchList, createAdmin, updateAdmin, updateStatus, deleteAdmin, getRoleByAdmin, allocRole } from '@/api/login'
+import { fetchList, createAdmin, updateAdmin, updateStatus, deleteAdmin, getRoleByAdmin, allocRole, upload } from '@/api/login'
 import { fetchAllRoleList } from '@/api/role'
 import { formatDate } from '@/utils/date'
-import { getClassList } from '@/api/class'
-import { getDeptList } from '@/api/dept'
+import { getAllClassList } from '@/api/class'
+import { getAllDeptList } from '@/api/dept'
+import UploadExcelComponent from '@/components/UploadExcel/index.vue'
+import { getToken } from '@/utils/auth'
 
 const defaultListQuery = {
   pageNum: 1,
@@ -286,10 +335,12 @@ const defaultAdmin = {
   roleId: null,
   classNo: null,
   deptNo: null,
-  status: 1
+  status: 1,
+
 }
 export default {
   name: 'adminList',
+  components: { UploadExcelComponent },
   data() {
     return {
       listQuery: Object.assign({}, defaultListQuery),
@@ -305,6 +356,9 @@ export default {
       userId: null,
       classList: [],
       deptList: [],
+      dialogImportVisible: false,
+      tableData: [],
+      tableHeader: []
     }
   },
   created() {
@@ -342,12 +396,15 @@ export default {
       this.isEdit = false
       this.admin = Object.assign({}, defaultAdmin)
       // 获取班级与学院数据
-      getClassList().then(res => {
+      getAllClassList().then(res => {
         this.classList = res.data
       })
-      getDeptList().then(res => {
+      getAllDeptList().then(res => {
         this.deptList = res.data
       })
+    },
+    handleImport() {
+      this.dialogImportVisible = true
     },
     handleStatusChange(index, row) {
       this.$confirm('是否要修改该状态?', '提示', {
@@ -389,10 +446,10 @@ export default {
       this.isEdit = true
       this.admin = Object.assign({}, row)
       // 获取班级与学院数据
-      getClassList().then(res => {
+      getAllClassList().then(res => {
         this.classList = res.data
       })
-      getDeptList().then(res => {
+      getAllDeptList().then(res => {
         this.deptList = res.data
       })
     },
@@ -472,6 +529,38 @@ export default {
           // }
         }
       })
+    },
+
+    uploadExcel(param) {
+      console.log(param)
+      let fileFormData = new FormData()
+      fileFormData.append('excelFile', param.file)
+      upload(fileFormData).then(res => {
+        this.$message({
+          message: res.data,
+          type: 'success'
+        })
+      })
+      this.getList()
+    },
+
+    beforeUpload(file) {
+      const isLt1M = file.size / 1024 / 1024 < 1
+
+      if (isLt1M) {
+        return true
+      }
+
+      this.$message({
+        message: 'Please do not upload files larger than 1m in size.',
+        type: 'warning'
+      })
+
+      return false
+    },
+    handleSuccess({ results, header }) {
+      this.tableData = results
+      this.tableHeader = header
     }
   }
 }
