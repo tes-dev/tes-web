@@ -30,5 +30,20 @@ export function getEvalControlList() {
   })
 }
 
+export function updateStatus(id, params) {
+  return request({
+    url: '/eval/control/updateStatus/' + id,
+    method: 'post',
+    params: params
+  })
+}
+
+export function getEvalList(id) {
+  return request({
+    url: '/eval/evalItem/' + id,
+    method: 'get',
+  })
+}
+
 
 
