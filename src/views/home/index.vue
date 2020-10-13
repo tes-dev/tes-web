@@ -4,54 +4,46 @@
       <el-row :gutter="20">
         <el-col :span="6">
           <el-card class="box-card">
-            <el-row>
-              <el-col class="el-icon-user" :span="12"></el-col>
-              <el-col :span="12" class="textSize">
-                <ul>
-                <li><span>学生总数</span></li>
-                <li><span v-text="countStudent+'人'"></span></li>
+            <div class="el-icon-user"></div>
+            <div class="text">
+              <ul>
+                <li><span class="textSpan">学生总数</span></li>
+                <li><span class="textSpan2" v-text="countStudent+'人'"></span></li>
               </ul>
-              </el-col>
-            </el-row>
+            </div>
           </el-card>
         </el-col>
         <el-col :span="6">
           <el-card class="box-card">
-            <el-row>
-              <el-col class="el-icon-s-custom" :span="12"></el-col>
-              <el-col :span="12" class="textSize">
-                <ul>
-                <li><span>教师总数</span></li>
-                <li><span v-text="countTeacher+'人'"></span></li>
+            <div class="el-icon-s-custom"></div>
+            <div>
+              <ul>
+                <li><span class="textSpan">教师总数</span></li>
+                <li><span class="textSpan2" v-text="countTeacher+'人'"></span></li>
               </ul>
-              </el-col>
-            </el-row>
+            </div>
           </el-card>
         </el-col>
         <el-col :span="6">
           <el-card class="box-card">
-            <el-row>
-              <el-col class="el-icon-s-promotion" :span="12"></el-col>
-              <el-col :span="12" class="textSize">
-                <ul>
-                <li><span>班级总数</span></li>
-                <li><span v-text="countClass+'班'"></span></li>
+            <div class="el-icon-s-promotion"></div>
+            <div>
+              <ul>
+                <li><span class="textSpan">班级总数</span></li>
+                <li><span class="textSpan2" v-text="countClass+'班'"></span></li>
               </ul>
-              </el-col>
-            </el-row>
+            </div>
           </el-card>
         </el-col>
         <el-col :span="6">
           <el-card class="box-card">
-            <el-row>
-              <el-col class="el-icon-school" :span="12"></el-col>
-              <el-col :span="12" class="textSize">
-                <ul>
-                <li><span>学院总数</span></li>
-                <li><span v-text="countDepartment+'院'"></span></li>
+            <div class="el-icon-school"></div>
+            <div>
+              <ul>
+                <li><span class="textSpan">学院总数</span></li>
+                <li><span class="textSpan2" v-text="countDepartment+'院'"></span></li>
               </ul>
-              </el-col>
-            </el-row>
+            </div>
           </el-card>
         </el-col>
       </el-row>
@@ -429,15 +421,74 @@ li{
   padding: 20px;
   font-size: 18px;
 }
-.el-icon-user,.el-icon-s-custom,.el-icon-s-promotion,.el-icon-school{
-  font-size: 50px;
-  color:rgb(79,192,141);
+.box-card div{
+  display: inline-block;
+}
+.box-card div:last-child{
+  float: right;
   margin-top: 10px;
 }
-.box-card .el-col{
+.el-icon-user{
+  width: 70px;
   height: 70px;
+  line-height: 70px;
+  text-align: center;
+  font-size: 50px;
+  color:rgb(64,201,198);
+  margin-top: 10px;
+  border-radius: 5px;
 }
-.textSize{
+.el-icon-user:hover{
+  background-color: rgb(64,201,198);
+  color: #fff;
+}
+.el-icon-s-custom{
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  font-size: 50px;
+  color:rgb(54,163,247);
+  margin-top: 10px;
+  border-radius: 5px;
+}
+.el-icon-s-custom:hover{
+  background-color:rgb(54,163,247);
+  color: #fff;
+}
+.el-icon-s-promotion{
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  font-size: 50px;
+  color:rgb(244,81,108);
+  margin-top: 10px;
+  border-radius: 5px;
+}
+.el-icon-s-promotion:hover{
+  background-color:rgb(244,81,108);
+  color: #fff;
+}
+.el-icon-school{
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+  text-align: center;
+  font-size: 50px;
+  color:rgb(52,191,163);
+  margin-top: 10px;
+  border-radius: 5px;
+}
+.el-icon-school:hover{
+  background-color:rgb(52,191,163);
+  color: #fff;
+}
+.textSpan{
+  color: rgb(140,140,140);
+  font-size: 15px;
+}
+.textSpan2{
   font-size: 20px;
 }
 </style>
