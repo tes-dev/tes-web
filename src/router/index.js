@@ -134,12 +134,6 @@ export const asyncRouterMap = [
       meta: { title: '指标管理', icon: 'tms-index' }
     },
     {
-      path: 'eval-setting',
-      name: 'eval-setting',
-      component: () => import('@/views/ems/eval/evalSetting'),
-      meta: { title: '设置评教表', icon: 'ems-eval' }
-    },
-    {
       path: 'anal',
       name: 'anal',
       component: () => import('@/views/ems/anal/index'),

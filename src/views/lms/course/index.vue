@@ -5,7 +5,7 @@
         <i class="el-icon-search"></i>
         <span>筛选搜索</span>
         <el-button
-          style="float: right; margin-top:35px"
+          style="float: right; margin-top: 35px"
           type="primary"
           @click="handleSearchList()"
           size="small"
@@ -13,7 +13,7 @@
           查询搜索
         </el-button>
         <el-button
-          style="float: right; margin-right: 15px; margin-top:35px"
+          style="float: right; margin-right: 15px; margin-top: 35px"
           @click="handleResetSearch()"
           size="small"
         >
@@ -43,13 +43,13 @@
       <i class="el-icon-tickets"></i>
       <span>课程列表</span>
       <el-button
-              class="btn-add"
-              style="margin-left: 20px"
-              size="mini"
-              type="second"
-              @click="handleAdd()"
-              >添加课程
-            </el-button>
+        class="btn-add"
+        style="margin-left: 20px"
+        size="mini"
+        type="second"
+        @click="handleAdd()"
+        >添加课程
+      </el-button>
     </el-card>
     <div class="table-container">
       <el-table
@@ -70,17 +70,14 @@
         </el-table-column>
         <el-table-column label="课程学期" align="center">
           <template slot-scope="scope">
-            <div v-if="scope.row.semesterId == 1">第一学期</div>
-            <div v-if="scope.row.semesterId == 2">第二学期</div>
-            <div v-if="scope.row.semesterId == 3">第三学期</div>
-            <div v-if="scope.row.semesterId == 4">第四学期</div>
-            <div v-if="scope.row.semesterId == 5">第五学期</div>
-            <div v-if="scope.row.semesterId == 6">第六学期</div>
-            <div v-if="scope.row.semesterId == 7">第七学期</div>
-            <div v-if="scope.row.semesterId == 8">第八学期</div>
+            <div v-for="semester in allSemester" :key="semester.id">
+              <div v-if="semester.id === scope.row.semesterId">
+                {{ semester.name }}
+              </div>
+            </div>
           </template>
         </el-table-column>
-        
+
         <el-table-column label="操作" width="240" align="center">
           <template slot-scope="scope">
             <el-button
@@ -126,14 +123,18 @@
           <el-input v-model="admin.num" style="width: 250px"></el-input>
         </el-form-item>
         <el-form-item label="课程学期：">
-          <el-select v-model="admin.semesterId" style="width: 250px"
-          placeholder="请选择">
+          <el-select
+            v-model="admin.semesterId"
+            style="width: 250px"
+            placeholder="请选择"
+          >
             <el-option
               v-for="item in allSemester"
               :key="item.id"
               :label="item.name"
-              :value="item.id">
-              </el-option>
+              :value="item.id"
+            >
+            </el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -148,11 +149,11 @@
 </template>
 <script>
 import { updateAdmin, getRoleByAdmin, allocRole } from '@/api/login'
-import { fetchAllSemesterList } from '@/api/semester'
+import { fetchAllSemesterList, allSemesterList } from '@/api/semester'
 import { formatDate } from '@/utils/date'
 import { getClassList } from '@/api/class'
 import { getDeptList } from '@/api/dept'
-import { fetchList,createAdmin,deleteAdmin,updateCourse } from '@/api/course'
+import { fetchList, createAdmin, deleteAdmin, updateCourse } from '@/api/course'
 
 const defaultListQuery = {
   pageNum: 1,
@@ -163,7 +164,7 @@ const defaultAdmin = {
   id: null,
   name: null,
   num: null,
-  semesterId:null
+  semesterId: null
 }
 export default {
   name: 'adminList',
@@ -273,10 +274,10 @@ export default {
         type: 'warning'
       }).then(() => {
         if (this.isEdit) {
-          updateCourse(this.admin.id,this.admin).then(response =>{
+          updateCourse(this.admin.id, this.admin).then(response => {
             this.$message({
-              message:'修改成功!',
-              type:'success'
+              message: '修改成功!',
+              type: 'success'
             })
             this.dialogVisible = false
             this.getList()
@@ -290,7 +291,7 @@ export default {
             this.dialogVisible = false
             this.getList()
           })
-          
+
         }
       })
     },
@@ -327,7 +328,7 @@ export default {
       })
     },
     getAllSemesterList() {
-      fetchAllSemesterList().then(response => {
+      allSemesterList().then(response => {
         this.allSemester = response.data
       })
     },
