@@ -8,6 +8,13 @@ export function fetchList(params) {
   })
 }
 
+export function getAllIndexList() {
+  return request({
+    url: '/indicator/all',
+    method: 'get',
+  })
+}
+
 export function updateStatus(id, params) {
   return request({
     url: '/indicator/updateStatus/' + id,

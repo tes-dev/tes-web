@@ -83,7 +83,7 @@ export const asyncRouterMap = [
       path: 'allocMenu',
       name: 'allocMenu',
       component: () => import('@/views/ums/role/allocMenu'),
-      meta: {title: '分配菜单'},
+      meta: { title: '分配菜单' },
       hidden: true
     }
     ]
@@ -132,6 +132,12 @@ export const asyncRouterMap = [
       name: 'index',
       component: () => import('@/views/ems/index/index'),
       meta: { title: '指标管理', icon: 'tms-index' }
+    },
+    {
+      path: 'eval-setting',
+      name: 'eval-setting',
+      component: () => import('@/views/ems/eval/evalSetting'),
+      meta: { title: '设置评教表', icon: 'ems-eval' }
     },
     {
       path: 'anal',
