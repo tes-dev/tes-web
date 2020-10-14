@@ -138,6 +138,13 @@ export const asyncRouterMap = [
       name: 'anal',
       component: () => import('@/views/ems/anal/index'),
       meta: { title: '统计分析', icon: 'tms-anal' }
+    },
+    {
+      path: 'vChart',
+      name: 'vChart',
+      component: () => import('@/views/ems/anal/vChart'),
+      meta: {title: '课程评教情况'},
+      hidden: true
     }
     ]
   },

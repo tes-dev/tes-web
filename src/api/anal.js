@@ -45,3 +45,27 @@ export function createIndicator(data) {
     data: data
   })
 }
+
+export function getCount(courseId,data) {
+  return request({
+    url: '/course/getCount/'+ courseId,
+    method: 'get',
+    data: data
+  })
+}
+
+export function evaluatedCount(courseId,data) {
+  return request({
+    url: '/evalResult/evaluatedCount/'+ courseId,
+    method: 'get',
+    data: data
+  })
+}
+
+export function getAllCount(courseId,data) {
+  return request({
+    url: '/course/getAllCount/'+ courseId,
+    method: 'get',
+    data: data
+  })
+}
