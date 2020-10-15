@@ -171,7 +171,7 @@ export const asyncRouterMap = [
       {
         path: 'eval2',
         name: 'eval2',
-        component: () => import('@/views/ems/eval/index'),
+        component: () => import('@/views/ems/eval/eval2'),
         meta: { title: '同行评教', icon: 'ems' }
       },
       {
