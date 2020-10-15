@@ -75,3 +75,18 @@ export function allocResource(data) {
     data: data
   })
 }
+
+export function listPermissionByRole(roleId) {
+  return request({
+    url: '/role/listPermission/' + roleId,
+    method: 'get'
+  })
+}
+
+export function allocPermission(params) {
+  return request({
+    url: '/role/allocPermission',
+    method: 'post',
+    params: params
+  })
+}

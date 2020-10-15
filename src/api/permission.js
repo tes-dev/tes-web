@@ -38,3 +38,10 @@ export function deleteSelect(id) {
   })
 }
 
+export function fetchTreeList() {
+  return request({
+    url: '/permission/treeList',
+    method: 'get'
+  })
+}
+

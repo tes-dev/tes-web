@@ -85,7 +85,14 @@ export const asyncRouterMap = [
       component: () => import('@/views/ums/role/allocMenu'),
       meta: { title: '分配菜单' },
       hidden: true
-    }
+    },
+    {
+      path: 'allocPermission',
+      name: 'allocPermission',
+      component: () => import('@/views/ums/role/allocPermission'),
+      meta: { title: '分配权限' },
+      hidden: true
+    },
     ]
   },
   {
