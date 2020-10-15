@@ -63,10 +63,11 @@
         </el-table-column> -->
         <el-table-column label="课程学期" align="center">
           <template slot-scope="scope">
-            <div v-if="scope.row.semesterId == 9">2019-2020学年第一学期</div>
-            <div v-if="scope.row.semesterId == 10">2019-2020学年第二学期</div>
-            <div v-if="scope.row.semesterId == 11">2020-2021学年第一学期</div>
-            <div v-if="scope.row.semesterId == 12">2020-2021学年第二学期</div>
+            <div v-for="semester in allSemester" :key="semester.id">
+              <div v-if="semester.id === scope.row.semesterId">
+                {{ semester.name }}
+              </div>
+            </div>
           </template>
         </el-table-column>
 
@@ -101,7 +102,7 @@
 </template>
 <script>
 import { updateAdmin, getRoleByAdmin, allocRole } from '@/api/login'
-import { fetchAllSemesterList } from '@/api/semester'
+import { fetchAllSemesterList,allSemesterList } from '@/api/semester'
 import { formatDate } from '@/utils/date'
 import { getClassList } from '@/api/class'
 import { getDeptList } from '@/api/dept'
@@ -189,7 +190,7 @@ export default {
       })
     },
     getAllSemesterList() {
-      fetchAllSemesterList().then(response => {
+      allSemesterList().then(response => {
         this.allSemester = response.data
       })
     },
