@@ -16,7 +16,7 @@
         <el-col :span="6">
           <el-card class="box-card">
             <div class="el-icon-s-custom"></div>
-            <div>
+            <div class="text">
               <ul>
                 <li><span class="textSpan">教师总数</span></li>
                 <li><span class="textSpan2" v-text="countTeacher+'人'"></span></li>
@@ -27,7 +27,7 @@
         <el-col :span="6">
           <el-card class="box-card">
             <div class="el-icon-s-promotion"></div>
-            <div>
+            <div class="text">
               <ul>
                 <li><span class="textSpan">班级总数</span></li>
                 <li><span class="textSpan2" v-text="countClass+'班'"></span></li>
@@ -38,7 +38,7 @@
         <el-col :span="6">
           <el-card class="box-card">
             <div class="el-icon-school"></div>
-            <div>
+            <div class="text">
               <ul>
                 <li><span class="textSpan">学院总数</span></li>
                 <li><span class="textSpan2" v-text="countDepartment+'院'"></span></li>
@@ -137,76 +137,12 @@
       </el-row>
     </div>
     <div class="statistics-layout">
-      <div class="layout-title">订单统计</div>
+      <div class="layout-title">班级学生情况展示</div>
       <el-row>
-        <el-col :span="4">
-          <div style="padding: 20px">
-            <div>
-              <div style="color: #909399; font-size: 14px">本月订单总数</div>
-              <div style="color: #606266; font-size: 24px; padding: 10px 0">
-                10000
-              </div>
-              <div>
-                <span class="color-success" style="font-size: 14px">+10%</span>
-                <span style="color: #c0c4cc; font-size: 14px">同比上月</span>
-              </div>
-            </div>
-            <div style="margin-top: 20px">
-              <div style="color: #909399; font-size: 14px">本周订单总数</div>
-              <div style="color: #606266; font-size: 24px; padding: 10px 0">
-                1000
-              </div>
-              <div>
-                <span class="color-danger" style="font-size: 14px">-10%</span>
-                <span style="color: #c0c4cc; font-size: 14px">同比上周</span>
-              </div>
-            </div>
-            <div style="margin-top: 20px">
-              <div style="color: #909399; font-size: 14px">本月销售总额</div>
-              <div style="color: #606266; font-size: 24px; padding: 10px 0">
-                100000
-              </div>
-              <div>
-                <span class="color-success" style="font-size: 14px">+10%</span>
-                <span style="color: #c0c4cc; font-size: 14px">同比上月</span>
-              </div>
-            </div>
-            <div style="margin-top: 20px">
-              <div style="color: #909399; font-size: 14px">本周销售总额</div>
-              <div style="color: #606266; font-size: 24px; padding: 10px 0">
-                50000
-              </div>
-              <div>
-                <span class="color-danger" style="font-size: 14px">-10%</span>
-                <span style="color: #c0c4cc; font-size: 14px">同比上周</span>
-              </div>
-            </div>
-          </div>
-        </el-col>
         <el-col :span="20">
           <div style="padding: 10px; border-left: 1px solid #dcdfe6">
-            <el-date-picker
-              style="float: right; z-index: 1"
-              size="small"
-              v-model="orderCountDate"
-              type="daterange"
-              align="right"
-              unlink-panels
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-              @change="handleDateChange"
-              :picker-options="pickerOptions"
-            >
-            </el-date-picker>
             <div>
-              <ve-line
-                :data="chartData"
-                :legend-visible="false"
-                :loading="loading"
-                :data-empty="dataEmpty"
-                :settings="chartSettings"
-              ></ve-line>
+              <ve-histogram :data="chartVeData" :extend="extend"></ve-histogram>
             </div>
           </div>
         </el-col>
@@ -221,34 +157,25 @@ import img_home_order from '@/assets/images/home_order.png'
 import img_home_today_amount from '@/assets/images/home_today_amount.png'
 import img_home_yesterday_amount from '@/assets/images/home_yesterday_amount.png'
 import { selectStudent,selectTeacher,selectClass,selectDepartment } from '@/api/home'
-const DATA_FROM_BACKEND = {
-  columns: ['date', 'orderCount', 'orderAmount'],
-  rows: [
-    { date: '2018-11-01', orderCount: 10, orderAmount: 1093 },
-    { date: '2018-11-02', orderCount: 20, orderAmount: 2230 },
-    { date: '2018-11-03', orderCount: 33, orderAmount: 3623 },
-    { date: '2018-11-04', orderCount: 50, orderAmount: 6423 },
-    { date: '2018-11-05', orderCount: 80, orderAmount: 8492 },
-    { date: '2018-11-06', orderCount: 60, orderAmount: 6293 },
-    { date: '2018-11-07', orderCount: 20, orderAmount: 2293 },
-    { date: '2018-11-08', orderCount: 60, orderAmount: 6293 },
-    { date: '2018-11-09', orderCount: 50, orderAmount: 5293 },
-    { date: '2018-11-10', orderCount: 30, orderAmount: 3293 },
-    { date: '2018-11-11', orderCount: 20, orderAmount: 2293 },
-    { date: '2018-11-12', orderCount: 80, orderAmount: 8293 },
-    { date: '2018-11-13', orderCount: 100, orderAmount: 10293 },
-    { date: '2018-11-14', orderCount: 10, orderAmount: 1293 },
-    { date: '2018-11-15', orderCount: 40, orderAmount: 4293 }
-  ]
-}
+import { classCount,classCountUserAll,classCountUser,getAllClassList } from '@/api/class'
+
 export default {
   name: 'home',
   data() {
+    this.extend = {
+      series: {
+        barWidth:30
+      }
+    }
     return {
       countStudent: 0,
       countTeacher: 0,
       countClass: 0,
       countDepartment: 0,
+      classCount: 0,
+      classUserNum: 0,
+      classUserNumComplete: 0,
+      classList: '',
       pickerOptions: {
         shortcuts: [{
           text: '最近一周',
@@ -289,18 +216,16 @@ export default {
       dataEmpty: false,
       img_home_order,
       img_home_today_amount,
-      img_home_yesterday_amount
+      img_home_yesterday_amount,
+      chartVeData: {}
     }
   },
   created() {
     this.initOrderCountDate()
-    this.getData()
     this.getCount()
+    this.getCountClass()
   },
   methods: {
-    handleDateChange() {
-      this.getData()
-    },
     initOrderCountDate() {
       let start = new Date()
       start.setFullYear(2018)
@@ -309,25 +234,6 @@ export default {
       const end = new Date()
       end.setTime(start.getTime() + 1000 * 60 * 60 * 24 * 7)
       this.orderCountDate = [start, end]
-    },
-    getData() {
-      setTimeout(() => {
-        this.chartData = {
-          columns: ['date', 'orderCount', 'orderAmount'],
-          rows: []
-        }
-        for (let i = 0; i < DATA_FROM_BACKEND.rows.length; i++) {
-          let item = DATA_FROM_BACKEND.rows[i]
-          let currDate = str2Date(item.date)
-          let start = this.orderCountDate[0]
-          let end = this.orderCountDate[1]
-          if (currDate.getTime() >= start.getTime() && currDate.getTime() <= end.getTime()) {
-            this.chartData.rows.push(item)
-          }
-        }
-        this.dataEmpty = false
-        this.loading = false
-      }, 1000)
     },
     getCount(){
       selectStudent().then(Response =>{
@@ -341,6 +247,20 @@ export default {
       }),
       selectDepartment().then(Response => {
         this.countDepartment = Response.data;
+      }),
+      classCount().then(Response =>{
+        this.classCount = Response.data;
+      }),
+      getAllClassList().then(Response =>{
+        this.classList = Response.data;
+      })
+    },
+    getCountClass(){
+      classCountUserAll().then(Response =>{
+        this.chartVeData = Response.data;
+      }),
+      classCountUser(this.chartVeData.classno).then(Response =>{
+        this.classUserNumComplete = Response.data;
       })
     }
   }
@@ -456,7 +376,6 @@ li{
 }
 .box-card div:last-child{
   float: right;
-  margin-top: 10px;
 }
 .el-icon-user{
   width: 70px;
@@ -468,7 +387,7 @@ li{
   margin-top: 10px;
   border-radius: 5px;
 }
-.el-icon-user:hover{
+.box-card:hover .el-icon-user{
   background-color: rgb(64,201,198);
   color: #fff;
 }
@@ -482,7 +401,7 @@ li{
   margin-top: 10px;
   border-radius: 5px;
 }
-.el-icon-s-custom:hover{
+.box-card:hover .el-icon-s-custom{
   background-color:rgb(54,163,247);
   color: #fff;
 }
@@ -496,7 +415,7 @@ li{
   margin-top: 10px;
   border-radius: 5px;
 }
-.el-icon-s-promotion:hover{
+.box-card:hover .el-icon-s-promotion{
   background-color:rgb(244,81,108);
   color: #fff;
 }
@@ -510,9 +429,12 @@ li{
   margin-top: 10px;
   border-radius: 5px;
 }
-.el-icon-school:hover{
+.box-card:hover .el-icon-school{
   background-color:rgb(52,191,163);
   color: #fff;
+}
+.text ul li:last-child{
+  margin-top: 10px;
 }
 .textSpan{
   color: rgb(140,140,140);
