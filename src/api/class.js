@@ -88,10 +88,3 @@ export function classCountUserAll() {
     method: 'get',
   })
 }
-
-export function classCountUser(no) {
-  return request({
-    url: '/class/classCountUser/'+no,
-    method: 'get',
-  })
-}

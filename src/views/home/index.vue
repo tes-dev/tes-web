@@ -157,7 +157,7 @@ import img_home_order from '@/assets/images/home_order.png'
 import img_home_today_amount from '@/assets/images/home_today_amount.png'
 import img_home_yesterday_amount from '@/assets/images/home_yesterday_amount.png'
 import { selectStudent,selectTeacher,selectClass,selectDepartment } from '@/api/home'
-import { classCount,classCountUserAll,classCountUser,getAllClassList } from '@/api/class'
+import { classCount,classCountUserAll,getAllClassList } from '@/api/class'
 
 export default {
   name: 'home',
@@ -258,9 +258,6 @@ export default {
     getCountClass(){
       classCountUserAll().then(Response =>{
         this.chartVeData = Response.data;
-      }),
-      classCountUser(this.chartVeData.classno).then(Response =>{
-        this.classUserNumComplete = Response.data;
       })
     }
   }
