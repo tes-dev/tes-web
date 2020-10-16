@@ -78,30 +78,60 @@
           </div>
         </el-col>
         <el-col :span="12">
-          <div class="out-border">
-            <div class="layout-title">用户总览</div>
-            <div style="padding: 40px">
-              <el-row>
-                <el-col :span="6" class="color-danger overview-item-value"
-                  >100</el-col
-                >
-                <el-col :span="6" class="color-danger overview-item-value"
-                  >200</el-col
-                >
-                <el-col :span="6" class="color-danger overview-item-value"
-                  >1000</el-col
-                >
-                <el-col :span="6" class="color-danger overview-item-value"
-                  >5000</el-col
-                >
-              </el-row>
-              <el-row class="font-medium">
-                <el-col :span="6" class="overview-item-title">今日新增</el-col>
-                <el-col :span="6" class="overview-item-title">昨日新增</el-col>
-                <el-col :span="6" class="overview-item-title">本月新增</el-col>
-                <el-col :span="6" class="overview-item-title">会员总数</el-col>
-              </el-row>
+          <div class="out-border" id="notice">
+            <div class="layout-title" style="position: relative">
+              通知公告
+              <a
+                href="#"
+                target="_blank"
+                style="position: absolute; right: 10px"
+                >更多+</a
+              >
             </div>
+            <ul>
+              <li>
+                <span>2020-10-09</span
+                ><a
+                  href="#"
+                  target="_blank"
+                  title="重庆工程学院2019-2020年度教师评价已开始"
+                  >重庆工程学院2019-2020年度教师评价已开始</a
+                >
+              </li>
+              <li>
+                <span>2020-09-13</span
+                ><a href="#" target="_blank" title="重庆工程学院2019-2020年度教师评价已开始"
+                  >重庆工程学院2019-2020年度教师评价已开始</a
+                >
+              </li>
+              <li>
+                <span>2020-09-13</span
+                ><a
+                  href="#"
+                  target="_blank"
+                  title="重庆工程学院2019-2020年度教师评价已开始"
+                  >重庆工程学院2019-2020年度教师评价已开始</a
+                >
+              </li>
+              <li>
+                <span>2020-08-20</span
+                ><a
+                  href="#"
+                  target="_blank"
+                  title="重庆工程学院2019-2020年度教师评价已开始"
+                  >重庆工程学院2019-2020年度教师评价已开始</a
+                >
+              </li>
+              <li>
+                <span>2020-08-13</span
+                ><a
+                  href="#"
+                  target="_blank"
+                  title="重庆工程学院2019-2020年度教师评价已开始 "
+                  >重庆工程学院2019-2020年度教师评价已开始</a
+                >
+              </li>
+            </ul>
           </div>
         </el-col>
       </el-row>
@@ -490,5 +520,29 @@ li{
 }
 .textSpan2{
   font-size: 20px;
+}
+#notice ul li {
+  /* width: 376px; */
+  height: 32px;
+  text-align: left;
+  position: relative;
+}
+#notice ul li span {
+  float: right;
+  font: 13px/32px "微软雅黑";
+  color: #a5a5a5;
+  position: absolute;
+  right: 10px;
+}
+#notice ul li a {
+  color: #272727;
+  font: 13px/32px "微软雅黑";
+  overflow: hidden;
+  display: block;
+  width: 400px;
+  height: 32px;
+}
+#notice ul li a:hover{
+  color: rgb(255, 108, 10);
 }
 </style>
