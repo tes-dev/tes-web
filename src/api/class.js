@@ -75,3 +75,16 @@ export function updateClass(id, data) {
   })
 }
 
+export function classCount() {
+  return request({
+    url: '/class/classCount',
+    method: 'get',
+  })
+}
+
+export function classCountUserAll() {
+  return request({
+    url: '/class/classCountUserAll',
+    method: 'get',
+  })
+}
