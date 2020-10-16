@@ -31,13 +31,25 @@
         </el-table-column>
         <el-table-column label="操作" width="180" align="center">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="text"
-              @click="handleEval(scope.$index, scope.row)"
-            >
-              开始评教
-            </el-button>
+            <div v-if="scope.row.eval">
+              <el-button
+                size="mini"
+                type="text"
+                @click="handleEval(scope.$index, scope.row)"
+                disabled
+              >
+                开始评教
+              </el-button>
+            </div>
+            <div v-else>
+              <el-button
+                size="mini"
+                type="text"
+                @click="handleEval(scope.$index, scope.row)"
+              >
+                开始评教
+              </el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>
@@ -104,7 +116,6 @@ export default {
       fetchList(this.no).then(res => {
         this.listLoading = false
         this.evalList = res.data
-
       })
     },
     handleEval(index, row) {
