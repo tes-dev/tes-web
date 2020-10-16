@@ -158,13 +158,17 @@ import img_home_today_amount from '@/assets/images/home_today_amount.png'
 import img_home_yesterday_amount from '@/assets/images/home_yesterday_amount.png'
 import { selectStudent,selectTeacher,selectClass,selectDepartment } from '@/api/home'
 import { classCount,classCountUserAll,getAllClassList } from '@/api/class'
+import Histogram from 'v-charts/lib/histogram.common'
 
 export default {
   name: 'home',
+  components: { Histogram },
   data() {
     this.extend = {
       series: {
-        barWidth:30
+        type: 'bar',
+        barWidth:30,
+        label: { show: true, position: "top" },
       }
     }
     return {
