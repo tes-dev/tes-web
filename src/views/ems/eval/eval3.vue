@@ -115,7 +115,8 @@ import { formatDate } from '@/utils/date'
 import { getClassList } from '@/api/class'
 import { getDeptList } from '@/api/dept'
 import { getAllCount } from '@/api/anal'
-import { fetchList,createAdmin,deleteAdmin,updateCourse } from '@/api/course'
+import { fetchListByNo,createAdmin,deleteAdmin,updateCourse } from '@/api/course'
+import { setSupport, getSupport, setCookie, getCookie } from '@/utils/support'
 
 const defaultListQuery = {
   pageNum: 1,
@@ -146,9 +147,11 @@ export default {
       classList: [],
       deptList: [],
       courseUserCount:null,
+      no:null,
     }
   },
   created() {
+    this.no = getCookie("no")
     this.getList()
     this.getAllSemesterList()
     this.getCourseUserCount()
@@ -188,9 +191,9 @@ export default {
     },
     getList() {
       this.listLoading = true
-      fetchList(this.listQuery).then(response => {
+      fetchListByNo(this.no).then(response => {
         this.listLoading = false
-        this.list = response.data.list
+        this.list = response.data
         this.total = response.data.total
       })
     },

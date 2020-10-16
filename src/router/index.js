@@ -152,6 +152,13 @@ export const asyncRouterMap = [
       component: () => import('@/views/ems/anal/vChart'),
       meta: { title: '课程评教情况' },
       hidden: true
+    },
+    {
+      path: 'markAnaly',
+      name: 'markAnaly',
+      component: () => import('@/views/ems/anal/markAnaly'),
+      meta: { title: '分数统计分析' },
+      hidden: true
     }
     ]
   },
@@ -177,7 +184,7 @@ export const asyncRouterMap = [
       {
         path: 'eval3',
         name: 'eval3',
-        component: () => import('@/views/ems/eval/index'),
+        component: () => import('@/views/ems/eval/eval3'),
         meta: { title: '查看评教情况', icon: 'ems-anal' }
       },
       {
@@ -186,6 +193,20 @@ export const asyncRouterMap = [
         component: () => import('@/views/ems/eval/leaderEval'),
         meta: { title: '领导评教', icon: 'ems-leader' }
       },
+      {
+        path: 'vChart',
+        name: 'vChart',
+        component: () => import('@/views/ems/anal/vChart'),
+        meta: { title: '课程评教情况' },
+        hidden: true
+      },
+      {
+        path: 'markAnaly',
+        name: 'markAnaly',
+        component: () => import('@/views/ems/anal/markAnaly'),
+        meta: { title: '分数统计分析' },
+        hidden: true
+      }
     ]
   },
   { path: '*', redirect: '/404', hidden: true }

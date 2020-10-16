@@ -69,3 +69,11 @@ export function getAllCount(courseId,data) {
     data: data
   })
 }
+
+export function getAllMark(courseId,data) {
+  return request({
+    url: '/evalResult/getAllMark/'+ courseId,
+    method: 'get',
+    data: data
+  })
+}
