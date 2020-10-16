@@ -173,6 +173,7 @@ export default {
                 message: '提交成功'
               })
               this.dialogVisible = false
+              this.radios = []
             })
           }
 

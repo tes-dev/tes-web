@@ -16,6 +16,13 @@ export function fetchList(id,data) {
   })
 }
 
+export function fetchLeaderList(id) {
+  return request({
+    url: '/eval/leaderCourseList/' + id,
+    method: 'get',
+  })
+}
+
 export function evalItem(params) {
   return request({
     url: '/eval/startEvaluation',

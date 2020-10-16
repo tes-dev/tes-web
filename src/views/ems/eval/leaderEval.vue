@@ -20,9 +20,6 @@
         <el-table-column label="教师" align="center">
           <template slot-scope="scope">{{ scope.row.targetName }}</template>
         </el-table-column>
-        <el-table-column label="班级" align="center">
-          <template slot-scope="scope">{{ scope.row.classNo }}</template>
-        </el-table-column>
         <el-table-column label="院系" align="center">
           <template slot-scope="scope">{{ scope.row.deptName }}</template>
         </el-table-column>
@@ -77,7 +74,7 @@
 </template>
 
 <script>
-import { eval2, evalItem, commitEval } from '@/api/eval'
+import { fetchLeaderList, evalItem, commitEval } from '@/api/eval'
 import { setSupport, getSupport, setCookie, getCookie } from '@/utils/support'
 
 export default {
@@ -101,7 +98,7 @@ export default {
   methods: {
     getList() {
       this.listLoading = true
-      eval2(this.no).then(res => {
+      fetchLeaderList(this.no).then(res => {
         this.listLoading = false
         this.evalList = res.data
 

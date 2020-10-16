@@ -150,7 +150,7 @@ export const asyncRouterMap = [
       path: 'vChart',
       name: 'vChart',
       component: () => import('@/views/ems/anal/vChart'),
-      meta: {title: '课程评教情况'},
+      meta: { title: '课程评教情况' },
       hidden: true
     }
     ]
@@ -179,6 +179,12 @@ export const asyncRouterMap = [
         name: 'eval3',
         component: () => import('@/views/ems/eval/index'),
         meta: { title: '查看评教情况', icon: 'ems-anal' }
+      },
+      {
+        path: 'eval4',
+        name: 'eval4',
+        component: () => import('@/views/ems/eval/leaderEval'),
+        meta: { title: '领导评教', icon: 'ems-leader' }
       },
     ]
   },

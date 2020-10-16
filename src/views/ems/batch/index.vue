@@ -158,7 +158,12 @@
         >
       </span>
     </el-dialog>
-    <el-dialog title="设置评教表" :visible.sync="dialogEvalVisible" width="40%">
+    <el-dialog
+      title="设置评教表"
+      :visible.sync="dialogEvalVisible"
+      width="40%"
+      @close="closeDialog()"
+    >
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
         <el-tab-pane label="学年信息" name="first">
           <el-form
@@ -332,7 +337,6 @@ export default {
       this.dialogVisible = true
     },
     handleDialogConfirm() {
-      console.log("点击")
       let params = new URLSearchParams()
       params.append('studentCheckIds', this.studentCheckIds)
       params.append('teacherCheckIds', this.teacherCheckIds)
@@ -349,7 +353,6 @@ export default {
       })
     },
     handleUpdateDialogConfirm() {
-      console.log("点击")
       let params = new URLSearchParams()
       params.append('studentCheckIds', this.studentCheckIds)
       params.append('teacherCheckIds', this.teacherCheckIds)
@@ -393,6 +396,7 @@ export default {
     },
     handleEval(index, row) {
       this.dialogEvalVisible = true
+
       this.semester = row
       getEvalList(row.id).then(res => {
         this.studentCheckIds = res.data.student
@@ -401,26 +405,26 @@ export default {
         // 学生复选框回显
         this.studentCheckIds.forEach((item) => {
           this.$nextTick(function () {
-            this.$refs.multipleTable1.toggleRowSelection(this.indexData[item])
+            this.$refs.multipleTable1.toggleRowSelection(this.indexData[item - 1])
           })
         })
         // 教师
         this.teacherCheckIds.forEach((item) => {
           this.$nextTick(function () {
-            this.$refs.multipleTable2.toggleRowSelection(this.indexData[item])
+            this.$refs.multipleTable2.toggleRowSelection(this.indexData[item - 1])
           })
         })
         // 领导
         this.leaderCheckIds.forEach((item) => {
           this.$nextTick(function () {
-            this.$refs.multipleTable3.toggleRowSelection(this.indexData[item])
+            this.$refs.multipleTable3.toggleRowSelection(this.indexData[item - 1])
           })
         })
 
       })
     },
     handleClick(tab, event) {
-      console.log(tab, event)
+      // console.log(tab, event)
     },
     cellclass(row) {
       if (row.columnIndex === 0) {
@@ -428,13 +432,35 @@ export default {
       }
     },
     handleSelectionChange1(val) {
-      this.studentCheckIds = val.map(obj => obj.id)
+      if (val != null) {
+        // console.log("change1", val)
+        this.studentCheckIds = val.map(obj => obj.id)
+      }
+
     },
     handleSelectionChange2(val) {
-      this.teacherCheckIds = val.map(obj => obj.id)
+      if (val != null) {
+        // console.log("change2", val)
+        this.teacherCheckIds = val.map(obj => obj.id)
+      }
     },
     handleSelectionChange3(val) {
-      this.leaderCheckIds = val.map(obj => obj.id)
+      if (val != null) {
+        // console.log("change3", val)
+        this.leaderCheckIds = val.map(obj => obj.id)
+      }
+    },
+    closeDialog() {
+      this.activeName = 'first'
+      this.studentCheckIds = []
+      this.teacherCheckIds = []
+      this.leaderCheckIds = []
+      // 清空选中清空
+      this.$nextTick(() => {
+        this.$refs.multipleTable1.clearSelection()
+        this.$refs.multipleTable2.clearSelection()
+        this.$refs.multipleTable3.clearSelection()
+      })
     }
   }
 }
