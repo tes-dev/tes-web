@@ -218,6 +218,9 @@ export default {
         barWidth: 30,
         label: { show: true, position: "top" },
       },
+      yAxis:{
+        minInterval:1
+      }
     };
     return {
       countStudent: 0,
