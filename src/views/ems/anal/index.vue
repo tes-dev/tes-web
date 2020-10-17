@@ -151,7 +151,7 @@ export default {
   created() {
     this.getList()
     this.getAllSemesterList()
-    this.getCourseUserCount()
+    // this.getCourseUserCount()
   },
   filters: {
     formatDateTime(time) {
@@ -194,12 +194,12 @@ export default {
         this.total = response.data.total
       })
     },
-    getCourseUserCount(index,row){
-      getAllCount(row.id).then(response => {
-          this.courseUserCount = response.data
-          console.log(response.data)
-      })
-    },
+    // getCourseUserCount(index,row){
+    //   getAllCount(row.id).then(response => {
+    //       this.courseUserCount = response.data
+    //       console.log(response.data)
+    //   })
+    // },
     getAllSemesterList() {
       allSemesterList().then(response => {
         this.allSemester = response.data

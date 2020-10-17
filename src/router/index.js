@@ -206,7 +206,14 @@ export const asyncRouterMap = [
         component: () => import('@/views/ems/anal/markAnaly'),
         meta: { title: '分数统计分析' },
         hidden: true
+      },
+      {
+        path: 'anal',
+        name: 'anal',
+        component: () => import('@/views/ems/anal/index'),
+        meta: { title: '统计分析', icon: 'tms-anal' }
       }
+
     ]
   },
   { path: '*', redirect: '/404', hidden: true }
