@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="un-handle-layout">
       <el-row :gutter="20">
-        <el-col :span="6">
+        <el-col :sm="12" :md="6">
           <el-card class="box-card">
             <div class="el-icon-user"></div>
             <div class="text">
@@ -15,7 +15,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="6">
+        <el-col :sm="12" :md="6">
           <el-card class="box-card">
             <div class="el-icon-s-custom"></div>
             <div class="text">
@@ -28,7 +28,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="6">
+        <el-col :sm="12" :md="6">
           <el-card class="box-card">
             <div class="el-icon-s-promotion"></div>
             <div class="text">
@@ -41,7 +41,7 @@
             </div>
           </el-card>
         </el-col>
-        <el-col :span="6">
+        <el-col :sm="12" :md="6">
           <el-card class="box-card">
             <div class="el-icon-school"></div>
             <div class="text">
@@ -426,7 +426,10 @@ li {
   padding: 20px;
   font-size: 18px;
 }
-.box-card div {
+.box-card{
+  margin-bottom: 10px;
+}
+.box-card div{
   display: inline-block;
 }
 .box-card div:last-child {
