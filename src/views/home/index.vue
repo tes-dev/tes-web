@@ -185,15 +185,11 @@
     </div>
     <div class="statistics-layout">
       <div class="layout-title">班级学生情况展示</div>
-      <el-row>
-        <el-col :span="20">
-          <div style="padding: 10px; border-left: 1px solid #dcdfe6">
-            <div>
-              <ve-histogram :data="chartVeData" :extend="extend"></ve-histogram>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
+      <div style="padding: 10px; border-left: 1px solid #dcdfe6;margin-top:30px">
+        <div>
+          <ve-histogram :data="chartVeData" :extend="extend"></ve-histogram>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -331,7 +327,7 @@ li {
   list-style: none;
 }
 .app-container {
-  margin-top: 40px;
+  margin-top: 20px;
   margin-left: 120px;
   margin-right: 120px;
 }
@@ -372,7 +368,7 @@ li {
 }
 
 .un-handle-layout {
-  margin-top: 20px;
+  margin-top: 10px;
   border: 1px solid #dcdfe6;
   border: none;
 }
