@@ -540,8 +540,9 @@ export default {
           message: res.data,
           type: 'success'
         })
+        this.getList()
+        // this.dialogImportVisible = false
       })
-      this.getList()
     },
 
     beforeUpload(file) {

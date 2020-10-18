@@ -128,7 +128,15 @@
         size="small"
       >
         <el-form-item label="指标权重：">
-          <el-input v-model="indicator.weight" style="width: 250px"></el-input>
+          <el-select v-model="indicator.weight" placeholder="请选择">
+            <el-option
+              v-for="item in weightList"
+              :key="item.value"
+              :label="item.value"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="指标信息：">
           <el-input
@@ -179,6 +187,10 @@ export default {
     return {
       listQuery: Object.assign({}, defaultListQuery),
       indicator: Object.assign({}, defaultIndicator),
+      weightList: [{ value: 0.1 }, { value: 0.15 },
+      { value: 0.2 }, { value: 0.25 },
+      { value: 0.3 }, { value: 0.35 },
+      { value: 0.4 }, { value: 0.45 }, { value: 0.5 }],
       list: null,
       total: null,
       listLoading: false,
