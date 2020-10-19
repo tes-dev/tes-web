@@ -8,6 +8,14 @@ export function fetchList(params) {
   })
 }
 
+export function leaderSelect(no,data) {
+  return request({
+    url:'/course/leaderSelect/'+ no,
+    method:'get',
+    data:data
+  })
+}
+
 export function fetchListByNo(no,data) {
   return request({
     url:'/course/listByNo/'+ no,

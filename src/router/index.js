@@ -210,7 +210,7 @@ export const asyncRouterMap = [
       {
         path: 'anal',
         name: 'anal',
-        component: () => import('@/views/ems/anal/index'),
+        component: () => import('@/views/ems/eval/leaderSelect'),
         meta: { title: '统计分析', icon: 'tms-anal' }
       }
 

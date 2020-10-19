@@ -128,6 +128,7 @@ export default {
     getEvalItem(row) {
       evalItem(row).then(res => {
         this.evalItemList = res.data
+
       })
     },
     handleClose(done) {
@@ -183,6 +184,7 @@ export default {
                 type: 'success',
                 message: '提交成功'
               })
+              this.getList()
               this.dialogVisible = false
               this.radios = []
             })
