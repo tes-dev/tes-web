@@ -5,7 +5,7 @@
         <i class="el-icon-search"></i>
         <span>筛选搜索</span>
         <el-button
-          style="float: right"
+          style="float: right;margin-top:35px"
           type="primary"
           @click="handleSearchList()"
           size="small"
@@ -13,7 +13,7 @@
           查询搜索
         </el-button>
         <el-button
-          style="float: right; margin-right: 15px"
+          style="float: right; margin-right: 15px;margin-top:35px"
           @click="handleResetSearch()"
           size="small"
         >
@@ -42,7 +42,7 @@
       <i class="el-icon-tickets" style="margin-top: 5px"></i>
       <span style="margin-top: 5px">数据列表</span>
       <el-button class="btn-add" @click="handleAddClass()" size="mini">
-        添加
+        添加班级
       </el-button>
     </el-card>
     <div class="table-container">
@@ -97,14 +97,15 @@
           <template slot-scope="scope">
             <el-button
               size="mini"
+              type="text"
               @click="handleUpdate(scope.$index, scope.row)"
-              >编辑
+              >编辑班级
             </el-button>
             <el-button
               size="mini"
-              type="danger"
+              type="text"
               @click="handleDelete(scope.$index, scope.row)"
-              >删除
+              >删除班级
             </el-button>
           </template>
         </el-table-column>

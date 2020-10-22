@@ -23,27 +23,20 @@
             ></el-input>
           </el-form-item>
           <el-button
-            style="float: right; width: 80px"
-            @click="handleResetSearch()"
-            size="small"
-            type="info"
-          >
-            重置
-          </el-button>
-          <el-button
-            style="
-              float: right;
-
-              margin-right: 10px;
-              width: 80px;
-            "
-            type="primary"
-            @click="handleSearchList()"
-            size="small"
-            icon="el-icon-search"
-          >
-            搜索
-          </el-button>
+          style="float: right"
+          type="primary"
+          @click="handleSearchList()"
+          size="small"
+        >
+          查询搜索
+        </el-button>
+        <el-button
+          style="float: right; margin-right: 15px"
+          @click="handleResetSearch()"
+          size="small"
+        >
+          重置
+        </el-button>
         </el-form>
       </div>
     </el-card>
@@ -67,7 +60,7 @@
         v-loading="listLoading"
         border
       >
-        <el-table-column label="序号" align="center">
+        <el-table-column label="序号" width="100" align="center">
           <template slot-scope="scope">{{ scope.row.id }}</template>
         </el-table-column>
         <el-table-column label="系号" align="center">
@@ -77,21 +70,19 @@
           <template slot-scope="scope">{{ scope.row.name }}</template>
         </el-table-column>
 
-        <el-table-column label="操作" align="center">
+        <el-table-column label="操作" width="240" align="center">
           <template slot-scope="scope">
             <el-button
-              type="primary"
-              size="small"
+              size="mini"
+              type="text"
               @click="handleUpdate(scope.$index, scope.row)"
-              round
-              >修改
+              >修改学院
             </el-button>
             <el-button
-              size="small"
-              type="danger"
+              size="mini"
+              type="text"
               @click="handleDelete(scope.$index, scope.row)"
-              round
-              >删除
+              >删除学院
             </el-button>
           </template>
         </el-table-column>

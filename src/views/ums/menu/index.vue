@@ -4,7 +4,7 @@
       <i class="el-icon-tickets" style="margin-top: 5px"></i>
       <span style="margin-top: 5px">数据列表</span>
       <el-button class="btn-add" @click="handleAddMenu()" size="mini">
-        添加
+        添加菜单
       </el-button>
     </el-card>
     <div class="table-container">

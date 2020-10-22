@@ -5,7 +5,7 @@
         <i class="el-icon-search"></i>
         <span>筛选搜索</span>
         <el-button
-          style="float: right"
+          style="float: right;margin-top:35px"
           type="primary"
           @click="handleSearchList()"
           size="small"
@@ -13,7 +13,7 @@
           查询搜索
         </el-button>
         <el-button
-          style="float: right; margin-right: 15px"
+          style="float: right; margin-right: 15px;margin-top:35px"
           @click="handleResetSearch()"
           size="small"
         >
