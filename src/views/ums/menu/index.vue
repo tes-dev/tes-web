@@ -73,6 +73,13 @@
               @click="handleDelete(scope.$index, scope.row)"
               >删除菜单
             </el-button>
+            <el-button
+              v-if="scope.row.parentId != 0"
+              size="mini"
+              type="text"
+              @click="returnLastLevel(scope.$index, scope.row)"
+              >返回上级
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -90,37 +97,6 @@
       >
       </el-pagination>
     </div>
-    <!-- <el-dialog
-      :title="isEdit?'编辑菜单':'添加菜单'"
-      :visible.sync="dialogVisible"
-      width="40%">
-      <el-form :model="role"
-               ref="roleForm"
-               label-width="150px" size="small">
-        <el-form-item label="菜单名称：">
-          <el-input v-model="role.title" style="width: 250px"></el-input>
-        </el-form-item>
-        <el-form-item label="菜单级数：">
-          <el-input v-model="role.level" style="width: 250px"></el-input>
-        </el-form-item>
-        <el-form-item label="前端名称：">
-          <el-input v-model="role.name" style="width: 250px"></el-input>
-        </el-form-item>
-        <el-form-item label="前端图标：">
-          <el-input v-model="role.icon" style="width: 250px"></el-input>
-        </el-form-item>
-        <el-form-item label="是否显示：">
-          <el-radio-group v-model="role.hidden">
-            <el-radio :label="1">是</el-radio>
-            <el-radio :label="0">否</el-radio>
-          </el-radio-group>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false" size="small">取 消</el-button>
-        <el-button type="primary" @click="handleDialogConfirm()" size="small">确 定</el-button>
-      </span>
-    </el-dialog> -->
   </div>
 </template>
 
@@ -166,6 +142,7 @@ export default {
     getList() {
       this.listLoading = true
       fetchList(this.parentId, this.listQuery).then(response => {
+        console.log(this.parentId+"this.parentId")
         this.listLoading = false
         this.list = response.data.list
         this.total = response.data.total
@@ -204,6 +181,10 @@ export default {
     handleShowNextLevel(index, row) {
       this.parentId = row.id
       // this.$router.push({path: '/ums/menu', query: {parentId: row.id}})
+      this.getList()
+    },
+    returnLastLevel(index, row){
+      this.parentId = 0
       this.getList()
     },
     handleUpdate(index, row) {

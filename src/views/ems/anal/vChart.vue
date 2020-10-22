@@ -1,5 +1,5 @@
 <template>
-  <ve-pie :data="chartData" :settings="chartSettings"></ve-pie>
+  <ve-pie :data="chartData" :settings="chartSettings" :extend="extend" style="margin-top:50px"></ve-pie>
 </template>
 
 <script>
@@ -10,8 +10,13 @@ export default {
   components: { VePie },
   data () {
     this.chartSettings = {
-        radius:100,
-        offsetY:200
+        radius:150,
+        offsetY:240,
+
+
+    }
+    this.extend = {
+      color:['rgb(47,69,83)','rgb(97,160,169)']
     }
     return {
       chartData:{}

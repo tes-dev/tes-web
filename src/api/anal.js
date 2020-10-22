@@ -70,10 +70,10 @@ export function getAllCount(courseId,data) {
   })
 }
 
-export function getAllMark(courseId,data) {
+export function getAllMark(params) {
   return request({
-    url: '/evalResult/getAllMark/'+ courseId,
+    url: '/evalResult/getAllMark',
     method: 'get',
-    data: data
+    params: params
   })
 }
